@@ -6,6 +6,7 @@ import nl.osrs.model.object.Object;
 import nl.osrs.model.player.Client;
 import nl.osrs.model.player.PacketType;
 import nl.osrs.model.player.skills.mining.Mining;
+import nl.osrs.script.ScriptLoader;
 import nl.osrs.task.Task;
 
 /**
@@ -103,13 +104,8 @@ public class ClickObject implements PacketType {
 			public void execute() {
 				c.turnPlayerTo(c.objectX, c.objectY);
 				
-				Mining.startMining(c, new Object(c.objectId, c.objectX, c.objectY));
-				
-				ObjectClick click = objectClickProcess.get(c.objectId);
-				
-				if (click != null)
-					if (click.process(c))
-						this.stop();
+				if (ScriptLoader.executeScript("object", "click", c))
+					this.stop();
 			}
 			@Override
 			public void onStop() {

@@ -11,7 +11,9 @@ import nl.osrs.task.Task;
 
 public class Mining {
 	
-	public static void startMining(Client client, Object object) {
+	public static void startMining(Client client) {
+		Object object = new Object(client.objectId, client.objectX, client.objectY);
+		
 		Ore ore = getOre(object.getId());
 		
 		if (ore == null)
