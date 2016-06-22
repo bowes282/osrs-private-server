@@ -3,6 +3,7 @@ tmp/
 *.tmp
 *.bak
 *.swp
+*.lnk
 *~.nib
 local.properties
 .settings/
