@@ -1,0 +1,20 @@
+{
+  "name": "osrs-private-server",
+  "version": "1.0.0",
+  "description": "DA framework for development of OSRS Private Servers",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "osrs",
+    "private",
+    "server"
+  ],
+  "author": "jarinus",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-cli": "^1.2.1"
+  }
+}
