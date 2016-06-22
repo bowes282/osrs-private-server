@@ -2,10 +2,8 @@ package nl.osrs.model.player.packets;
 
 import java.util.HashMap;
 
-import nl.osrs.model.object.Object;
 import nl.osrs.model.player.Client;
 import nl.osrs.model.player.PacketType;
-import nl.osrs.model.player.skills.mining.Mining;
 import nl.osrs.script.ScriptLoader;
 import nl.osrs.task.Task;
 
