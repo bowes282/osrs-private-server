@@ -97,7 +97,7 @@ public final class Class36 {
 			int fileId = j >> 16;
 			Class36 class36 = (Class36) frameList.get(new Integer(j));
 			if (class36 == null) {
-				Client.instance.onDemandFetcher.method558(1, fileId);
+				Client.instance.onDemandFetcher.requestData(1, fileId);
 				return null;
 			} else
 				return class36;

@@ -37,19 +37,19 @@ public class Smelting {
 					e.printStackTrace();
 				}
 				
-				client.getItems().deleteItem(bar.getRequirement().getRequiredOre1(), bar.getRequirement().getRequiredOreAmount1());
-				if (bar.getRequirement().getRequiredOre2() != null && bar.getRequirement().getRequiredOreAmount2() != null)
-					client.getItems().deleteItem(bar.getRequirement().getRequiredOre2(), bar.getRequirement().getRequiredOreAmount2());
-				
-				if (bar == Bar.IRON && Misc.random(1) < 1) {
-					client.sendMessage("... but you are unsuccessful in retrieving an iron bar.");
-					return;
-				}
-				
-				client.getItems().addItem(bar.getId(), 1);
-				client.getItems();
-				client.sendMessage("... and retrieve a " + ItemHandler.getItemName(bar.getId()).toLowerCase() + ".");
-				client.getPA().addSkillXP(bar.getExp(), client.playerSmithing);
+					client.getItems().deleteItem(bar.getRequirement().getRequiredOre1(), bar.getRequirement().getRequiredOreAmount1());
+					if (bar.getRequirement().getRequiredOre2() != null && bar.getRequirement().getRequiredOreAmount2() != null)
+						client.getItems().deleteItem(bar.getRequirement().getRequiredOre2(), bar.getRequirement().getRequiredOreAmount2());
+					
+					if (bar == Bar.IRON && Misc.random(2) < 1) {
+						client.sendMessage("... but you are unsuccessful in retrieving an iron bar.");
+						return;
+					}
+					
+					client.getItems().addItem(bar.getId(), 1);
+					client.getItems();
+					client.sendMessage("... and retrieve a " + ItemHandler.getItemName(bar.getId()).toLowerCase() + ".");
+					client.getPA().addSkillXP(bar.getExp(), client.playerSmithing);
 
 				if (!smeltingPrerequisites(client, bar, false)) {
 					this.stop();

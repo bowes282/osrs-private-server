@@ -28,7 +28,7 @@ public class Jframe extends Client implements ActionListener {
 	public Jframe(String args[]) {
 		super();
 		try {
-			signlink.startpriv(InetAddress.getByName(server));
+			signlink.startpriv(InetAddress.getByName(connectionAddress));
 			initUI();
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -62,7 +62,7 @@ public class Jframe extends Client implements ActionListener {
 
 	public URL getCodeBase() {
 		try {
-			return new URL("http://" + server + "/cache");
+			return new URL("http://" + connectionAddress + "/cache");
 		} catch (Exception e) {
 			return super.getCodeBase();
 		}

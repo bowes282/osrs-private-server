@@ -20,6 +20,8 @@ public class PickupItem implements PacketType {
 			c.resetWalkingQueue();
 			return;
 		}
+		c.getTaskScheduler().stopTasks();
+		c.getPA().removeAllWindows();
 		c.getCombat().resetPlayerAttack();
 		if(c.getX() == c.pItemX && c.getY() == c.pItemY) {
 			GameEngine.itemHandler.removeGroundItem(c, c.pItemId, c.pItemX, c.pItemY, true);

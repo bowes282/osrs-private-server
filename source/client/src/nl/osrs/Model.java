@@ -1,14 +1,13 @@
 package nl.osrs;
 
-
 public class Model extends Animable {
 
 	public static void nullLoader() {
 		aClass21Array1661 = null;
 		aBooleanArray1663 = null;
 		aBooleanArray1664 = null;
-		anIntArray1666 = null;
-		anIntArray1667 = null;
+		vertexPerspectiveY = null;
+		vertexPerspectiveZ = null;
 		anIntArray1668 = null;
 		anIntArray1669 = null;
 		anIntArray1670 = null;
@@ -2059,9 +2058,9 @@ public class Model extends Animable {
 				int j6 = i5 * i4 - j5 * l3 >> 16;
 				j5 = i5 * l3 + j5 * i4 >> 16;
 			i5 = j6;
-			anIntArray1667[k4] = j5 - j4;
-			anIntArray1665[k4] = l1 + (l4 << 9) / j5;
-			anIntArray1666[k4] = i2 + (i5 << 9) / j5;
+			vertexPerspectiveZ[k4] = j5 - j4;
+			vertexPerspectiveX[k4] = l1 + (l4 << 9) / j5;
+			vertexPerspectiveY[k4] = i2 + (i5 << 9) / j5;
 			if (anInt1642 > 0) {
 				anIntArray1668[k4] = l4;
 				anIntArray1669[k4] = i5;
@@ -2083,7 +2082,7 @@ public class Model extends Animable {
 			int k2 = k1 * j + j2 * k >> 16;
 			int l2 = anInt1650 * k >> 16;
 							int i3 = k2 + l2;
-							if (i3 <= 50 || k2 >= 3500)
+							if (i3 <= 50) // || k2 >= 3500
 								return;
 							int j3 = l1 * l + j1 * i1 >> 16;
 				int k3 = j3 - anInt1650 << WorldController.viewDistance;
@@ -2158,12 +2157,12 @@ public class Model extends Animable {
 		k8 = l7 * k - i8 * j >> 16;
 		i8 = l7 * j + i8 * k >> 16;
 		l7 = k8;
-		anIntArray1667[j7] = i8 - k2;
+		vertexPerspectiveZ[j7] = i8 - k2;
 		if (i8 >= 50) {
-			anIntArray1665[j7] = l5 + (k7 << WorldController.viewDistance) / i8;
-			anIntArray1666[j7] = j6 + (l7 << WorldController.viewDistance) / i8;
+			vertexPerspectiveX[j7] = l5 + (k7 << WorldController.viewDistance) / i8;
+			vertexPerspectiveY[j7] = j6 + (l7 << WorldController.viewDistance) / i8;
 		} else {
-			anIntArray1665[j7] = -5000;
+			vertexPerspectiveX[j7] = -5000;
 			flag = true;
 		}
 		if (flag || anInt1642 > 0) {
@@ -2190,24 +2189,24 @@ public class Model extends Animable {
 				int l = anIntArray1631[k];
 				int k1 = anIntArray1632[k];
 				int j2 = anIntArray1633[k];
-				int i3 = anIntArray1665[l];
-				int l3 = anIntArray1665[k1];
-				int k4 = anIntArray1665[j2];
+				int i3 = vertexPerspectiveX[l];
+				int l3 = vertexPerspectiveX[k1];
+				int k4 = vertexPerspectiveX[j2];
 				if (flag && (i3 == -5000 || l3 == -5000 || k4 == -5000)) {
 					aBooleanArray1664[k] = true;
-					int j5 = (anIntArray1667[l] + anIntArray1667[k1] + anIntArray1667[j2])
+					int j5 = (vertexPerspectiveZ[l] + vertexPerspectiveZ[k1] + vertexPerspectiveZ[j2])
 					/ 3 + anInt1653;
 					anIntArrayArray1672[j5][anIntArray1671[j5]++] = k;
 				} else {
 					if (flag1
 							&& method486(anInt1685, anInt1686,
-									anIntArray1666[l], anIntArray1666[k1],
-									anIntArray1666[j2], i3, l3, k4)) {
+									vertexPerspectiveY[l], vertexPerspectiveY[k1],
+									vertexPerspectiveY[j2], i3, l3, k4)) {
 						anIntArray1688[anInt1687++] = i;
 						flag1 = false;
 					}
-					if ((i3 - l3) * (anIntArray1666[j2] - anIntArray1666[k1])
-							- (anIntArray1666[l] - anIntArray1666[k1])
+					if ((i3 - l3) * (vertexPerspectiveY[j2] - vertexPerspectiveY[k1])
+							- (vertexPerspectiveY[l] - vertexPerspectiveY[k1])
 							* (k4 - l3) > 0) {
 						aBooleanArray1664[k] = false;
 						if (i3 < 0 || l3 < 0 || k4 < 0
@@ -2217,7 +2216,7 @@ public class Model extends Animable {
 							aBooleanArray1663[k] = true;
 						else
 							aBooleanArray1663[k] = false;
-						int k5 = (anIntArray1667[l] + anIntArray1667[k1] + anIntArray1667[j2])
+						int k5 = (vertexPerspectiveZ[l] + vertexPerspectiveZ[k1] + vertexPerspectiveZ[j2])
 						/ 3 + anInt1653;
 						anIntArrayArray1672[k5][anIntArray1671[k5]++] = k;
 					}
@@ -2370,16 +2369,16 @@ public class Model extends Animable {
 		else
 			i1 = anIntArray1637[i] & 3;
 		if (i1 == 0) {
-			Texture.method374(anIntArray1666[j], anIntArray1666[k],
-					anIntArray1666[l], anIntArray1665[j], anIntArray1665[k],
-					anIntArray1665[l], anIntArray1634[i], anIntArray1635[i],
+			Texture.drawShadedTriangle(vertexPerspectiveY[j], vertexPerspectiveY[k],
+					vertexPerspectiveY[l], vertexPerspectiveX[j], vertexPerspectiveX[k],
+					vertexPerspectiveX[l], anIntArray1634[i], anIntArray1635[i],
 					anIntArray1636[i]);
 			return;
 		}
 		if (i1 == 1) {
-			Texture.method376(anIntArray1666[j], anIntArray1666[k],
-					anIntArray1666[l], anIntArray1665[j], anIntArray1665[k],
-					anIntArray1665[l], modelIntArray3[anIntArray1634[i]]);
+			Texture.drawFlatTriangle(vertexPerspectiveY[j], vertexPerspectiveY[k],
+					vertexPerspectiveY[l], vertexPerspectiveX[j], vertexPerspectiveX[k],
+					vertexPerspectiveX[l], modelIntArray3[anIntArray1634[i]]);
 			return;
 		}
 		if (i1 == 2) {
@@ -2387,9 +2386,9 @@ public class Model extends Animable {
 			int l1 = anIntArray1643[j1];
 			int j2 = anIntArray1644[j1];
 			int l2 = anIntArray1645[j1];
-			Texture.method378(anIntArray1666[j], anIntArray1666[k],
-					anIntArray1666[l], anIntArray1665[j], anIntArray1665[k],
-					anIntArray1665[l], anIntArray1634[i], anIntArray1635[i],
+			Texture.drawTexturedTriangle(vertexPerspectiveY[j], vertexPerspectiveY[k],
+					vertexPerspectiveY[l], vertexPerspectiveX[j], vertexPerspectiveX[k],
+					vertexPerspectiveX[l], anIntArray1634[i], anIntArray1635[i],
 					anIntArray1636[i], anIntArray1668[l1], anIntArray1668[j2],
 					anIntArray1668[l2], anIntArray1669[l1], anIntArray1669[j2],
 					anIntArray1669[l2], anIntArray1670[l1], anIntArray1670[j2],
@@ -2401,9 +2400,9 @@ public class Model extends Animable {
 				int i2 = anIntArray1643[k1];
 				int k2 = anIntArray1644[k1];
 				int i3 = anIntArray1645[k1];
-				Texture.method378(anIntArray1666[j], anIntArray1666[k],
-						anIntArray1666[l], anIntArray1665[j], anIntArray1665[k],
-						anIntArray1665[l], anIntArray1634[i], anIntArray1634[i],
+				Texture.drawTexturedTriangle(vertexPerspectiveY[j], vertexPerspectiveY[k],
+						vertexPerspectiveY[l], vertexPerspectiveX[j], vertexPerspectiveX[k],
+						vertexPerspectiveX[l], anIntArray1634[i], anIntArray1634[i],
 						anIntArray1634[i], anIntArray1668[i2], anIntArray1668[k2],
 						anIntArray1668[i3], anIntArray1669[i2], anIntArray1669[k2],
 						anIntArray1669[i3], anIntArray1670[i2], anIntArray1670[k2],
@@ -2426,8 +2425,8 @@ public class Model extends Animable {
 		int j2 = anIntArray1670[k1];
 
 		if (l1 >= 50) {
-			anIntArray1678[l] = anIntArray1665[i1];
-			anIntArray1679[l] = anIntArray1666[i1];
+			anIntArray1678[l] = vertexPerspectiveX[i1];
+			anIntArray1679[l] = vertexPerspectiveY[i1];
 			anIntArray1680[l++] = anIntArray1634[i];
 		} else {
 			int k2 = anIntArray1668[i1];
@@ -2457,8 +2456,8 @@ public class Model extends Animable {
 			}
 		}
 		if (i2 >= 50) {
-			anIntArray1678[l] = anIntArray1665[j1];
-			anIntArray1679[l] = anIntArray1666[j1];
+			anIntArray1678[l] = vertexPerspectiveX[j1];
+			anIntArray1679[l] = vertexPerspectiveY[j1];
 			anIntArray1680[l++] = anIntArray1635[i];
 		} else {
 			int l2 = anIntArray1668[j1];
@@ -2488,8 +2487,8 @@ public class Model extends Animable {
 			}
 		}
 		if (j2 >= 50) {
-			anIntArray1678[l] = anIntArray1665[k1];
-			anIntArray1679[l] = anIntArray1666[k1];
+			anIntArray1678[l] = vertexPerspectiveX[k1];
+			anIntArray1679[l] = vertexPerspectiveY[k1];
 			anIntArray1680[l++] = anIntArray1636[i];
 		} else {
 			int i3 = anIntArray1668[k1];
@@ -2536,18 +2535,18 @@ public class Model extends Animable {
 				else
 					l7 = anIntArray1637[i] & 3;
 				if (l7 == 0)
-					Texture.method374(i7, j7, k7, j3, j4, j5,
+					Texture.drawShadedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1680[0], anIntArray1680[1],
 							anIntArray1680[2]);
 				else if (l7 == 1)
-					Texture.method376(i7, j7, k7, j3, j4, j5,
+					Texture.drawFlatTriangle(i7, j7, k7, j3, j4, j5,
 							modelIntArray3[anIntArray1634[i]]);
 				else if (l7 == 2) {
 					int j8 = anIntArray1637[i] >> 2;
 					int k9 = anIntArray1643[j8];
 					int k10 = anIntArray1644[j8];
 					int k11 = anIntArray1645[j8];
-					Texture.method378(i7, j7, k7, j3, j4, j5,
+					Texture.drawTexturedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1680[0], anIntArray1680[1],
 							anIntArray1680[2], anIntArray1668[k9],
 							anIntArray1668[k10], anIntArray1668[k11],
@@ -2560,7 +2559,7 @@ public class Model extends Animable {
 					int l9 = anIntArray1643[k8];
 					int l10 = anIntArray1644[k8];
 					int l11 = anIntArray1645[k8];
-					Texture.method378(i7, j7, k7, j3, j4, j5,
+					Texture.drawTexturedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1634[i], anIntArray1634[i],
 							anIntArray1634[i], anIntArray1668[l9],
 							anIntArray1668[l10], anIntArray1668[l11],
@@ -2582,18 +2581,18 @@ public class Model extends Animable {
 				else
 					i8 = anIntArray1637[i] & 3;
 				if (i8 == 0) {
-					Texture.method374(i7, j7, k7, j3, j4, j5,
+					Texture.drawShadedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1680[0], anIntArray1680[1],
 							anIntArray1680[2]);
-					Texture.method374(i7, k7, anIntArray1679[3], j3, j5,
+					Texture.drawShadedTriangle(i7, k7, anIntArray1679[3], j3, j5,
 							anIntArray1678[3], anIntArray1680[0],
 							anIntArray1680[2], anIntArray1680[3]);
 					return;
 				}
 				if (i8 == 1) {
 					int l8 = modelIntArray3[anIntArray1634[i]];
-					Texture.method376(i7, j7, k7, j3, j4, j5, l8);
-					Texture.method376(i7, k7, anIntArray1679[3], j3, j5,
+					Texture.drawFlatTriangle(i7, j7, k7, j3, j4, j5, l8);
+					Texture.drawFlatTriangle(i7, k7, anIntArray1679[3], j3, j5,
 							anIntArray1678[3], l8);
 					return;
 				}
@@ -2602,7 +2601,7 @@ public class Model extends Animable {
 					int i10 = anIntArray1643[i9];
 					int i11 = anIntArray1644[i9];
 					int i12 = anIntArray1645[i9];
-					Texture.method378(i7, j7, k7, j3, j4, j5,
+					Texture.drawTexturedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1680[0], anIntArray1680[1],
 							anIntArray1680[2], anIntArray1668[i10],
 							anIntArray1668[i11], anIntArray1668[i12],
@@ -2610,7 +2609,7 @@ public class Model extends Animable {
 							anIntArray1669[i12], anIntArray1670[i10],
 							anIntArray1670[i11], anIntArray1670[i12],
 							anIntArray1640[i]);
-					Texture.method378(i7, k7, anIntArray1679[3], j3, j5,
+					Texture.drawTexturedTriangle(i7, k7, anIntArray1679[3], j3, j5,
 							anIntArray1678[3], anIntArray1680[0],
 							anIntArray1680[2], anIntArray1680[3],
 							anIntArray1668[i10], anIntArray1668[i11],
@@ -2625,7 +2624,7 @@ public class Model extends Animable {
 					int j10 = anIntArray1643[j9];
 					int j11 = anIntArray1644[j9];
 					int j12 = anIntArray1645[j9];
-					Texture.method378(i7, j7, k7, j3, j4, j5,
+					Texture.drawTexturedTriangle(i7, j7, k7, j3, j4, j5,
 							anIntArray1634[i], anIntArray1634[i],
 							anIntArray1634[i], anIntArray1668[j10],
 							anIntArray1668[j11], anIntArray1668[j12],
@@ -2633,7 +2632,7 @@ public class Model extends Animable {
 							anIntArray1669[j12], anIntArray1670[j10],
 							anIntArray1670[j11], anIntArray1670[j12],
 							anIntArray1640[i]);
-					Texture.method378(i7, k7, anIntArray1679[3], j3, j5,
+					Texture.drawTexturedTriangle(i7, k7, anIntArray1679[3], j3, j5,
 							anIntArray1678[3], anIntArray1634[i],
 							anIntArray1634[i], anIntArray1634[i],
 							anIntArray1668[j10], anIntArray1668[j11],
@@ -2703,9 +2702,9 @@ public class Model extends Animable {
 	static OnDemandFetcherParent aOnDemandFetcherParent_1662;
 	static boolean aBooleanArray1663[] = new boolean[8000];
 	static boolean aBooleanArray1664[] = new boolean[8000];
-	static int anIntArray1665[] = new int[8000];
-	static int anIntArray1666[] = new int[8000];
-	static int anIntArray1667[] = new int[8000];
+	static int vertexPerspectiveX[] = new int[8000];
+	static int vertexPerspectiveY[] = new int[8000];
+	static int vertexPerspectiveZ[] = new int[8000];
 	static int anIntArray1668[] = new int[8000];
 	static int anIntArray1669[] = new int[8000];
 	static int anIntArray1670[] = new int[8000];

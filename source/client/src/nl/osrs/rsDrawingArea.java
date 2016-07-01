@@ -1,4 +1,5 @@
 package nl.osrs;
+
 public class rsDrawingArea extends DrawingArea{
 
     public static int height;
@@ -306,6 +307,30 @@ public class rsDrawingArea extends DrawingArea{
             int i_94_ = (i_91_ >> 16 & 0xff) * i_92_;
             int i_95_ = (i_91_ >> 8 & 0xff) * i_92_;
             int i_96_ = (i_91_ & 0xff) * i_92_;
+            int i_97_ = i + i_89_ * width;
+            for (int i_98_ = 0; i_98_ < i_90_; i_98_++) {
+                int i_99_ = (pixels[i_97_] >> 16 & 0xff) * i_93_;
+                int i_100_ = (pixels[i_97_] >> 8 & 0xff) * i_93_;
+                int i_101_ = (pixels[i_97_] & 0xff) * i_93_;
+                int i_102_ = ((i_94_ + i_99_ >> 8 << 16) + (i_95_ + i_100_ >> 8 << 8) + (i_96_ + i_101_ >> 8));
+                pixels[i_97_++] = i_102_;
+            }
+        }
+    }
+
+    public static void drawHorizontalLine(int i, int i_89_, int i_90_, int i_91_) {
+        if (i_89_ >= topY && i_89_ < bottomY) {
+            if (i < topX) {
+                i_90_ -= topX - i;
+                i = topX;
+            }
+            if (i + i_90_ > bottomX) {
+                i_90_ = bottomX - i;
+            }
+            int i_93_ = 256;
+            int i_94_ = (i_91_ >> 16 & 0xff) * 256;
+            int i_95_ = (i_91_ >> 8 & 0xff) * 256;
+            int i_96_ = (i_91_ & 0xff) * 256;
             int i_97_ = i + i_89_ * width;
             for (int i_98_ = 0; i_98_ < i_90_; i_98_++) {
                 int i_99_ = (pixels[i_97_] >> 16 & 0xff) * i_93_;

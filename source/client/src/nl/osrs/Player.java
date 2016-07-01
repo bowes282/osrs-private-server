@@ -23,7 +23,9 @@ public final class Player extends Entity {
 				model_3.anIntArrayArray1657 = null;
 				if(spotAnim.anInt410 != 128 || spotAnim.anInt411 != 128)
 					model_3.method478(spotAnim.anInt410, spotAnim.anInt410, spotAnim.anInt411);
-				model_3.method479(64 + spotAnim.anInt413, 850 + spotAnim.anInt414, -30, -50, -30, true);
+				model_3.method479(84 + spotAnim.anInt413, 1550 + spotAnim.anInt414, -50, -110, -50, true);
+//				model_3.method479(95 + spotAnim.anInt413, 9282 + spotAnim.anInt414, -30, -50, -30, true);
+//				model_3.method479(64 + spotAnim.anInt413, 850 + spotAnim.anInt414, -30, -50, -30, true);
 				Model aclass30_sub2_sub4_sub6_1s[] = {
 						model, model_3
 				};
@@ -262,6 +264,7 @@ public final class Player extends Entity {
 				}
 
 			model_1.method469();
+			model_1.method478(150, 150, 132);
 			model_1.method479(84, 1000, -90, -580, -90, true);
 			mruNodes.removeFromCache(model_1, l);
 			aLong1697 = l;

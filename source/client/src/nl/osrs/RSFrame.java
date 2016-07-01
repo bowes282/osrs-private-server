@@ -2,6 +2,7 @@ package nl.osrs;
 import java.awt.*;
 
 final class RSFrame extends Frame {
+	private boolean antiAliasing = false;
 	
 	private static final long serialVersionUID = 6411404177667816019L;
 
@@ -27,7 +28,13 @@ final class RSFrame extends Frame {
 	}
 
 	public void paint(Graphics g) {
-		rsApplet.paint(g);
+		if (antiAliasing) {
+	        Graphics2D g2 = (Graphics2D)rsApplet.graphics;
+	        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+	                             RenderingHints.VALUE_ANTIALIAS_ON);
+	        rsApplet.paint(g2);
+		} else
+			rsApplet.paint(g);
 	}
 
 	private final RSApplet rsApplet;

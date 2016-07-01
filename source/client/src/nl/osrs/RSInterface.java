@@ -1,4 +1,5 @@
 package nl.osrs;
+
 public final class RSInterface {
 
 	public void swapInventoryItems(int i, int j) {

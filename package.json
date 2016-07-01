@@ -1,7 +1,7 @@
 {
   "name": "osrs-private-server",
   "version": "1.0.0",
-  "description": "DA framework for development of OSRS Private Servers",
+  "description": "A framework for development of OSRS Private Servers",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

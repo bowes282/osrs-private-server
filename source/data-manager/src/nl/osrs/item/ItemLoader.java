@@ -1,143 +1,196 @@
 package nl.osrs.item;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import com.mysql.jdbc.exceptions.jdbc4.CommunicationsException;
+import org.bson.Document;
 
-import nl.osrs.sql.QueryFactory;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoDatabase;
+
+import nl.osrs.mongo.MongoManager;
 
 public class ItemLoader {
-	private static List<Item> items;
-	private static Map<Integer, String> equipmentSlots;
-	private static Map<Integer, String> skills;
+	private static ArrayList<Item> items;
 	
 	public static ArrayList<Item> getItems() {
 		if (items == null)
-			load();
-		return (ArrayList<Item>) items;
+			loadItems();
+		
+		return items;
 	}
 	
-	public static Map<Integer, String> getEquipmentSlots() {
-		if (equipmentSlots == null)
-			load();
+	public static void loadItems() {
+		FindIterable<Document> result = MongoManager.executeQuery(
+				(MongoDatabase db) -> db.getCollection("items").find());
+		
+		ArrayList<Item> items = new ArrayList<>();
+		
+		for (Document doc : result)
+			items.add(convert(doc));
+		
+		ItemLoader.items = items;
+	}
+	
+	public static void saveItems(List<Item> items) {
+		for (Item item : items)
+			saveItem(item);
+	}
+	
+	public static void saveItem(Item item) {
+		Document toSave = convert(item);
+		
+		System.out.println("To save: " + toSave.toString());
+		// Do something...
+	}
+	
+	public static HashMap<Integer, String> getEquipmentSlots() {
+		HashMap<Integer, String> equipmentSlots = new HashMap<>();
+		
+		FindIterable<Document> result = MongoManager.executeQuery(
+				(MongoDatabase db) -> db.getCollection("equipmentSlotNames").find());
+		
+		for (Document doc : result)
+			equipmentSlots.put(doc.getInteger("equipmentSlot"), doc.getString("name"));
+		
 		return equipmentSlots;
 	}
 	
-	public static Map<Integer, String> getSkills() {
-		if (skills == null)
-			load();
+	public static HashMap<Integer, String> getSkills() {
+		HashMap<Integer, String> skills = new HashMap<>();
+		
+		FindIterable<Document> result = MongoManager.executeQuery(
+				(MongoDatabase db) -> db.getCollection("skillNames").find());
+		
+		for (Document doc : result)
+			skills.put(doc.getInteger("skill"), doc.getString("name"));
+		
 		return skills;
 	}
 	
-	private static void load() {
-		try {
-			loadItems();
-			loadItemRequirements();
-			loadEquipmentSlotNames();
-			loadSkillNames();
-		} catch (CommunicationsException e) {
-			System.err.println("Unable to connect to the database.");
-			System.exit(1);
-		} catch (SQLException e) {
-			e.printStackTrace();
+	private static Document convert(Item item) {
+		Document doc = new Document("id", item.getId());
+		
+		if (item.hasName())
+			doc.append("name", item.getName());
+		
+		if (item.hasExamine())
+			doc.append("examine", item.getExamine());
+		
+		if (item.hasValue() && item.getValue() != 0)
+			doc.append("value", item.getValue());
+		
+		if (item.hasEquipmentSlot() && item.getEquipmentSlot() != 0)
+			doc.append("equipmentSlot", item.getEquipmentSlot());
+		
+		if (item.hasBonuses()) {
+			Document bonuses = new Document();
+			
+			int[] bonusesArray = new int[item.getBonuses().length];
+			
+			for (int i = 0; i < item.getBonuses().length; i++)
+				bonusesArray[i] = item.getBonuses()[i];
+			
+			bonuses.append("bonuses", bonusesArray);
 		}
-	}
+		
+		if (item.hasStandAnimation())
+			doc.append("standAnimation", item.getStandAnimation());
+		
+		if (item.hasWalkAnimation())
+			doc.append("walkAnimation", item.getWalkAnimation());
+		
+		if (item.hasRunAnimation())
+			doc.append("runAnimation", item.getRunAnimation());
+		
+		if (item.hasAttackAnimation())
+			doc.append("attackAnimation", item.getAttackAnimation());
+		
+		if (item.hasBlockAnimation())
+			doc.append("blockAnimation", item.getBlockAnimation());
+		
+		if (item.hasAttackDelay())
+			doc.append("attackDelay", item.getAttackDelay());
+		
+		if (item.hasRequirements()) {
+			ArrayList<ItemRequirement> requirements = item.getRequirements();
+			ArrayList<Document> itemRequirements = new ArrayList<>();
+			
+			for (ItemRequirement requirement : requirements)
+				itemRequirements.add(new Document("skill", requirement.getSkill())
+					.append("level", requirement.getLevel()));
+			
+			doc.append("requirements", itemRequirements);
+		}
 
-	private static void loadItems() throws SQLException {
-		items = new ArrayList<>();
-		
-		String query = "SELECT * FROM item";
-		
-		ResultSet result = QueryFactory.executeQuery(query);
-		
-		while (result.next()) {
-			Item item = new Item(result.getInt(1));
-			item.setName(result.getString(2));
-			item.setExamine(result.getString(3));
-			item.setValue(result.getInt(4));
-			item.setEquipmentSlot(result.getInt(5));
+		if (item.hasBonuses()) {
+			Document bonuses = new Document();
 			
-			int[] bonuses = new int[12];
+			int[] bonusesArray = new int[item.getBonuses().length];
 			
-			for (int i = 0; i < 12; i++) {
-				bonuses[i] = result.getInt(6 + i);
-			}
+			for (int i = 0; i < item.getBonuses().length; i++)
+				bonusesArray[i] = item.getBonuses()[i];
+			
+			bonuses.append("bonuses", bonusesArray);
+		}
+		return doc;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Item convert(Document document) {
+		Item item = new Item(document.getInteger("id"));
+		
+		if (document.containsKey("name"))
+			item.setName(document.getString("name"));
+		
+		if (document.containsKey("examine"))
+			item.setExamine(document.getString("examine"));
+		
+		if (document.containsKey("value"))
+			item.setValue(document.getInteger("value"));
+		
+		if (document.containsKey("equipmentSlot"))
+			item.setEquipmentSlot(document.getInteger("equipmentSlot"));
+		
+		if (document.containsKey("bonuses")) {
+			// I'm sure that it returns an ArrayList<Integer>...
+			ArrayList<Integer> itemBonuses = (ArrayList<Integer>) document.get("bonuses");
+				
+			int[] bonuses = new int[itemBonuses.size()];
+			
+			for (int i = 0 ; i < itemBonuses.size(); i++)
+				bonuses[i] = itemBonuses.get(i);
+			
 			
 			item.setBonuses(bonuses);
-			item.setStandAnimation(result.getInt(18));
-			item.setWalkAnimation(result.getInt(19));
-			item.setRunAnimation(result.getInt(20));
-			item.setAttackAnimation(result.getInt(21));
-			item.setBlockAnimation(result.getInt(22));
-			item.setAttackDelay(result.getInt(23));
-			
-			items.add(item);
-		}
-	}
-	
-	private static void loadItemRequirements() throws SQLException {
-		if (items == null)
-			loadItems();
-		
-		Map<Integer, ArrayList<ItemRequirement>> temp = new HashMap<>();
-		
-		String query = "SELECT * FROM item_requirements";
-		
-		ResultSet result = QueryFactory.executeQuery(query);
-		
-		while (result.next()) {
-			int itemId = result.getInt(1);
-			
-			ItemRequirement requirement = new ItemRequirement(result.getInt(2), result.getInt(3));
-			
-			ArrayList<ItemRequirement> requirements = temp.get(itemId);
-			
-			if (requirements == null)
-				requirements = new ArrayList<>();
-			
-			requirements.add(requirement);
-			
-			temp.put(itemId, requirements);
 		}
 		
-		for (Item item : items)
-			if (temp.containsKey(item.getId()))
-				item.setRequirements(temp.get(item.getId()));
-	}
-	
-	private static void loadEquipmentSlotNames() throws SQLException {
-		equipmentSlots = new HashMap<>();
+		if (document.containsKey("standAnimation"))
+			item.setStandAnimation(document.getInteger("standAnimation"));
 		
-		String query = "SELECT * FROM item_equipment_slots";
+		if (document.containsKey("walkAnimation"))
+			item.setWalkAnimation(document.getInteger("walkAnimation"));
 		
-		ResultSet result = QueryFactory.executeQuery(query);
+		if (document.containsKey("runAnimation"))
+			item.setRunAnimation(document.getInteger("runAnimation"));
 		
-		while (result.next()) {
-			int equipmentSlot = result.getInt(1);
-			String equipmentSlotName = result.getString(2);
-			
-			equipmentSlots.put(equipmentSlot, equipmentSlotName);
-		}
-	}
+		if (document.containsKey("attackAnimation"))
+			item.setAttackAnimation(document.getInteger("attackAnimation"));
+		
+		if (document.containsKey("blockAnimation"))
+			item.setBlockAnimation(document.getInteger("blockAnimation"));
+		
+		if (document.containsKey("attackDelay"))
+			item.setAttackDelay(document.getInteger("attackDelay"));
 
-	private static void loadSkillNames() throws SQLException {
-		skills = new HashMap<>();
-		
-		String query = "SELECT * FROM skills";
-		
-		ResultSet result = QueryFactory.executeQuery(query);
-		
-		while (result.next()) {
-			int skill = result.getInt(1);
-			String skillName = result.getString(2);
-			
-			skills.put(skill, skillName);
+		if (document.containsKey("requirements")) {
+			// I'm sure that it returns an ArrayList<Document>...
+			for (Document doc : (ArrayList<Document>) document.get("requirements"))
+				item.addRequirement(new ItemRequirement(doc.getInteger("skill"), doc.getInteger("level")));
 		}
+		
+		return item;
 	}
 	
 }

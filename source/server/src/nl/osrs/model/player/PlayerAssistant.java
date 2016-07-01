@@ -1905,8 +1905,8 @@ public class PlayerAssistant{
 	}
 	
 	public boolean addSkillXP(double amount, int skill){
-		if (amount+c.playerXP[skill] < 0 || c.playerXP[skill] > 200000000) {
-			if(c.playerXP[skill] > 200000000) {
+		if (amount+c.playerXP[skill] < 0 || c.playerXP[skill] >= 200000000) {
+			if(c.playerXP[skill] >= 200000000) {
 				c.playerXP[skill] = 200000000;
 			}
 			return false;
@@ -2090,17 +2090,5 @@ public class PlayerAssistant{
 		} else if (c.fightMode == 3) {
 			c.getPA().sendFrame36(43, 2);
 		}
-	}
-	
-	public void openSmeltingInterface() {
-		sendFrame164(2400);
-		sendFrame246(2405, 150, 2349);
-		sendFrame246(2406, 150, 2351);
-		sendFrame246(2407, 150, 2355);
-		sendFrame246(2409, 150, 2353);
-		sendFrame246(2410, 150, 2357);
-		sendFrame246(2411, 150, 2359);
-		sendFrame246(2412, 150, 2361);
-		sendFrame246(2413, 150, 2363);
 	}
 }

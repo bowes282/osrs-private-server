@@ -12,3 +12,5 @@ The project contains:
 * A package.json so users can install dependencies via `npm install`.
 * Gulp to manage scripts and to build releases for the client and the server.
 * A batch file that runs the client and server in their respective source folders.
+* A JSON-based item, npc and object definition. ?? (SQL or Mongo?)
+* A JavaScript-based plugin feature system.

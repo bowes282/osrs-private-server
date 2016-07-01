@@ -203,6 +203,9 @@ public final class ObjectDef {
 			i = clientInstance.variousSettings[j] >> k & i1;
 		} else if (anInt749 != -1)
 			i = clientInstance.variousSettings[anInt749];
+		
+		System.out.println("render " + name);
+		
 		if (i < 0 || i >= childrenIDs.length || childrenIDs[i] == -1)
 			return null;
 		else
@@ -295,7 +298,7 @@ public final class ObjectDef {
 			model_3.method478(anInt748, anInt740, anInt772);
 		if (flag2)
 			model_3.method475(anInt738, anInt745, anInt783);
-		model_3.method479(84, 1500, -90, -280, -70, !aBoolean769);
+		model_3.method479(74, 1000, -90, -580, -90, !aBoolean769);
 		if (anInt760 == 1)
 			model_3.anInt1654 = model_3.modelHeight;
 		mruNodes2.removeFromCache(model_3, l1);

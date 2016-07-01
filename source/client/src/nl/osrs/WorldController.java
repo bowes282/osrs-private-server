@@ -779,14 +779,14 @@ final class WorldController {
 
 	private static boolean method311(int i, int j, int k) {
 		int l = j * anInt460 + k * anInt461 >> 16;
-		int i1 = j * anInt461 - k * anInt460 >> 16;
-		int j1 = i * anInt458 + i1 * anInt459 >> 16;
-		int k1 = i * anInt459 - i1 * anInt458 >> 16;
-		if (j1 < 50 || j1 > 3500)
-			return false;
-		int l1 = anInt493 + (l << viewDistance) / j1;
-		int i2 = anInt494 + (k1 << viewDistance) / j1;
-		return l1 >= anInt495 && l1 <= anInt497 && i2 >= anInt496 && i2 <= anInt498;
+							int i1 = j * anInt461 - k * anInt460 >> 16;
+					int j1 = i * anInt458 + i1 * anInt459 >> 16;
+			int k1 = i * anInt459 - i1 * anInt458 >> 16;
+						if (j1 < 50 || j1 > 3500)
+							return false;
+						int l1 = anInt493 + (l << viewDistance) / j1;
+						int i2 = anInt494 + (k1 << viewDistance) / j1;
+						return l1 >= anInt495 && l1 <= anInt497 && i2 >= anInt496 && i2 <= anInt498;
 	}
 
 	public void method312(int i, int j) {
@@ -797,7 +797,7 @@ final class WorldController {
 		anInt471 = -1;
 	}
 
-	public void method313(int i, int j, int k, int l, int i1, int j1) {
+	public void method313(int i, int j, int k, int l, int i1, int j1, int cullingCenterX, int cullingCenterY) {
 		if (i < 0)
 			i = 0;
 		else if (i >= anInt438 * 128)
@@ -815,8 +815,8 @@ final class WorldController {
 		anInt455 = i;
 		anInt456 = l;
 		anInt457 = j;
-		anInt453 = i / 128;
-		anInt454 = j / 128;
+		anInt453 = cullingCenterX;
+		anInt454 = cullingCenterY;
 		anInt447 = i1;
 		anInt449 = anInt453 - 25;
 		if (anInt449 < 0)
@@ -837,17 +837,22 @@ final class WorldController {
 			for (int i2 = anInt449; i2 < anInt450; i2++) {
 				for (int k2 = anInt451; k2 < anInt452; k2++) {
 					Ground class30_sub3 = aclass30_sub3[i2][k2];
-					if (class30_sub3 != null)
-						if (class30_sub3.anInt1321 > i1 || !aBooleanArrayArray492[(i2 - anInt453) + 25][(k2 - anInt454) + 25] && anIntArrayArrayArray440[k1][i2][k2] - l < 2000) {
-							class30_sub3.aBoolean1322 = false;
-							class30_sub3.aBoolean1323 = false;
-							class30_sub3.anInt1325 = 0;
-						} else {
-							class30_sub3.aBoolean1322 = true;
-							class30_sub3.aBoolean1323 = true;
-							class30_sub3.aBoolean1324 = class30_sub3.anInt1317 > 0;
-							anInt446++;
-						}
+					if (class30_sub3 != null) {
+//						if (class30_sub3.anInt1321 > i1 || !aBooleanArrayArray492[(i2 - anInt453) + 25][(k2 - anInt454) + 25]&& anIntArrayArrayArray440[k1][i2][k2] - l < 2000) {
+//							class30_sub3.aBoolean1322 = false;
+//							class30_sub3.aBoolean1323 = false;
+//							class30_sub3.anInt1325 = 0;
+//						} else {
+//							class30_sub3.aBoolean1322 = true;
+//							class30_sub3.aBoolean1323 = true;
+//							class30_sub3.aBoolean1324 = class30_sub3.anInt1317 > 0;
+//							anInt446++;
+//						}
+						class30_sub3.aBoolean1322 = true;
+						class30_sub3.aBoolean1323 = true;
+						class30_sub3.aBoolean1324 = class30_sub3.anInt1317 > 0;
+						anInt446++;
+					}
 				}
 
 			}
@@ -1333,157 +1338,157 @@ final class WorldController {
 		} while (true);
 	}
 
-	private void method315(Class43 class43, int i, int j, int k, int l, int i1, int j1, int k1) {
-		int l1;
-		int i2 = l1 = (j1 << 7) - anInt455;
-		int j2;
-		int k2 = j2 = (k1 << 7) - anInt457;
-		int l2;
-		int i3 = l2 = i2 + 128;
-		int j3;
-		int k3 = j3 = k2 + 128;
-		int l3 = anIntArrayArrayArray440[i][j1][k1] - anInt456;
-		int i4 = anIntArrayArrayArray440[i][j1 + 1][k1] - anInt456;
-		int j4 = anIntArrayArrayArray440[i][j1 + 1][k1 + 1] - anInt456;
-		int k4 = anIntArrayArrayArray440[i][j1][k1 + 1] - anInt456;
-		int l4 = k2 * l + i2 * i1 >> 16;
-		k2 = k2 * i1 - i2 * l >> 16;
-		i2 = l4;
-		l4 = l3 * k - k2 * j >> 16;
-		k2 = l3 * j + k2 * k >> 16;
-		l3 = l4;
-		if (k2 < 50)
-			return;
-		l4 = j2 * l + i3 * i1 >> 16;
-		j2 = j2 * i1 - i3 * l >> 16;
-		i3 = l4;
-		l4 = i4 * k - j2 * j >> 16;
-		j2 = i4 * j + j2 * k >> 16;
-		i4 = l4;
-		if (j2 < 50)
-			return;
-		l4 = k3 * l + l2 * i1 >> 16;
-		k3 = k3 * i1 - l2 * l >> 16;
-		l2 = l4;
-		l4 = j4 * k - k3 * j >> 16;
-		k3 = j4 * j + k3 * k >> 16;
-		j4 = l4;
-		if (k3 < 50)
-			return;
-		l4 = j3 * l + l1 * i1 >> 16;
-		j3 = j3 * i1 - l1 * l >> 16;
-		l1 = l4;
-		l4 = k4 * k - j3 * j >> 16;
-		j3 = k4 * j + j3 * k >> 16;
-		k4 = l4;
-		if (j3 < 50)
-			return;
-		int i5 = Texture.textureInt1 + (i2 << viewDistance) / k2;
-		int j5 = Texture.textureInt2 + (l3 << viewDistance) / k2;
-		int k5 = Texture.textureInt1 + (i3 << viewDistance) / j2;
-		int l5 = Texture.textureInt2 + (i4 << viewDistance) / j2;
-		int i6 = Texture.textureInt1 + (l2 << viewDistance) / k3;
-		int j6 = Texture.textureInt2 + (j4 << viewDistance) / k3;
-		int k6 = Texture.textureInt1 + (l1 << viewDistance) / j3;
-		int l6 = Texture.textureInt2 + (k4 << viewDistance) / j3;
-		Texture.anInt1465 = 0;
-		if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
-			Texture.aBoolean1462 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > DrawingArea.centerX || k6 > DrawingArea.centerX || k5 > DrawingArea.centerX;
-			if (aBoolean467 && method318(anInt468, anInt469, j6, l6, l5, i6, k6, k5)) {
-				anInt470 = j1;
-				anInt471 = k1;
-			}
-			if (class43.anInt720 == -1) {
-				if (class43.anInt718 != 0xbc614e)
-					Texture.method374(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717);
-			} else if (!lowMem) {
-				if (class43.aBoolean721)
-					Texture.method378(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720);
-				else
-					Texture.method378(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, k3, j3, j2, class43.anInt720);
-			} else {
-				int i7 = anIntArray485[class43.anInt720];
-				Texture.method374(j6, l6, l5, i6, k6, k5, method317(i7, class43.anInt718), method317(i7, class43.anInt719), method317(i7, class43.anInt717));
-			}
-		}
-		if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
-			Texture.aBoolean1462 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > DrawingArea.centerX || k5 > DrawingArea.centerX || k6 > DrawingArea.centerX;
-			if (aBoolean467 && method318(anInt468, anInt469, j5, l5, l6, i5, k5, k6)) {
-				anInt470 = j1;
-				anInt471 = k1;
-			}
-			if (class43.anInt720 == -1) {
-				if (class43.anInt716 != 0xbc614e) {
-					Texture.method374(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719);
-				}
-			} else {
-				if (!lowMem) {
-					Texture.method378(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720);
-					return;
-				}
-				int j7 = anIntArray485[class43.anInt720];
-				Texture.method374(j5, l5, l6, i5, k5, k6, method317(j7, class43.anInt716), method317(j7, class43.anInt717), method317(j7, class43.anInt719));
-			}
-		}
-	}
-
-	private void method316(int i, int j, int k, Class40 class40, int l, int i1, int j1) {
-		int k1 = class40.anIntArray673.length;
-		for (int l1 = 0; l1 < k1; l1++) {
-			int i2 = class40.anIntArray673[l1] - anInt455;
-			int k2 = class40.anIntArray674[l1] - anInt456;
-			int i3 = class40.anIntArray675[l1] - anInt457;
-			int k3 = i3 * k + i2 * j1 >> 16;
-			i3 = i3 * j1 - i2 * k >> 16;
-			i2 = k3;
-			k3 = k2 * l - i3 * j >> 16;
-			i3 = k2 * j + i3 * l >> 16;
-			k2 = k3;
-			if (i3 < 50)
+		private void method315(Class43 class43, int i, int j, int k, int l, int i1, int j1, int k1) {
+			int l1;
+			int i2 = l1 = (j1 << 7) - anInt455;
+			int j2;
+			int k2 = j2 = (k1 << 7) - anInt457;
+			int l2;
+			int i3 = l2 = i2 + 128;
+			int j3;
+			int k3 = j3 = k2 + 128;
+			int l3 = anIntArrayArrayArray440[i][j1][k1] - anInt456;
+			int i4 = anIntArrayArrayArray440[i][j1 + 1][k1] - anInt456;
+			int j4 = anIntArrayArrayArray440[i][j1 + 1][k1 + 1] - anInt456;
+			int k4 = anIntArrayArrayArray440[i][j1][k1 + 1] - anInt456;
+			int l4 = k2 * l + i2 * i1 >> 16;
+			k2 = k2 * i1 - i2 * l >> 16;
+			i2 = l4;
+			l4 = l3 * k - k2 * j >> 16;
+			k2 = l3 * j + k2 * k >> 16;
+			l3 = l4;
+			if (k2 < 50)
 				return;
-			if (class40.anIntArray682 != null) {
-				Class40.anIntArray690[l1] = i2;
-				Class40.anIntArray691[l1] = k2;
-				Class40.anIntArray692[l1] = i3;
-			}
-			Class40.anIntArray688[l1] = Texture.textureInt1 + (i2 << viewDistance) / i3;
-			Class40.anIntArray689[l1] = Texture.textureInt2 + (k2 << viewDistance) / i3;
-		}
-
-		Texture.anInt1465 = 0;
-		k1 = class40.anIntArray679.length;
-		for (int j2 = 0; j2 < k1; j2++) {
-			int l2 = class40.anIntArray679[j2];
-			int j3 = class40.anIntArray680[j2];
-			int l3 = class40.anIntArray681[j2];
-			int i4 = Class40.anIntArray688[l2];
-			int j4 = Class40.anIntArray688[j3];
-			int k4 = Class40.anIntArray688[l3];
-			int l4 = Class40.anIntArray689[l2];
-			int i5 = Class40.anIntArray689[j3];
-			int j5 = Class40.anIntArray689[l3];
-			if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
-				Texture.aBoolean1462 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > DrawingArea.centerX || j4 > DrawingArea.centerX || k4 > DrawingArea.centerX;
-				if (aBoolean467 && method318(anInt468, anInt469, l4, i5, j5, i4, j4, k4)) {
-					anInt470 = i;
-					anInt471 = i1;
+			l4 = j2 * l + i3 * i1 >> 16;
+			j2 = j2 * i1 - i3 * l >> 16;
+			i3 = l4;
+			l4 = i4 * k - j2 * j >> 16;
+			j2 = i4 * j + j2 * k >> 16;
+			i4 = l4;
+			if (j2 < 50)
+				return;
+			l4 = k3 * l + l2 * i1 >> 16;
+			k3 = k3 * i1 - l2 * l >> 16;
+			l2 = l4;
+			l4 = j4 * k - k3 * j >> 16;
+			k3 = j4 * j + k3 * k >> 16;
+			j4 = l4;
+			if (k3 < 50)
+				return;
+			l4 = j3 * l + l1 * i1 >> 16;
+			j3 = j3 * i1 - l1 * l >> 16;
+			l1 = l4;
+			l4 = k4 * k - j3 * j >> 16;
+			j3 = k4 * j + j3 * k >> 16;
+			k4 = l4;
+			if (j3 < 50)
+				return;
+			int i5 = Texture.textureInt1 + (i2 << viewDistance) / k2;
+			int j5 = Texture.textureInt2 + (l3 << viewDistance) / k2;
+			int k5 = Texture.textureInt1 + (i3 << viewDistance) / j2;
+			int l5 = Texture.textureInt2 + (i4 << viewDistance) / j2;
+			int i6 = Texture.textureInt1 + (l2 << viewDistance) / k3;
+			int j6 = Texture.textureInt2 + (j4 << viewDistance) / k3;
+			int k6 = Texture.textureInt1 + (l1 << viewDistance) / j3;
+			int l6 = Texture.textureInt2 + (k4 << viewDistance) / j3;
+			Texture.anInt1465 = 0;
+			if ((i6 - k6) * (l5 - l6) - (j6 - l6) * (k5 - k6) > 0) {
+				Texture.aBoolean1462 = i6 < 0 || k6 < 0 || k5 < 0 || i6 > DrawingArea.centerX || k6 > DrawingArea.centerX || k5 > DrawingArea.centerX;
+				if (aBoolean467 && method318(anInt468, anInt469, j6, l6, l5, i6, k6, k5)) {
+					anInt470 = j1;
+					anInt471 = k1;
 				}
-				if (class40.anIntArray682 == null || class40.anIntArray682[j2] == -1) {
-					if (class40.anIntArray676[j2] != 0xbc614e)
-						Texture.method374(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2]);
+				if (class43.anInt720 == -1) {
+					if (class43.anInt718 != 0xbc614e)
+						Texture.drawShadedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717);
 				} else if (!lowMem) {
-					if (class40.aBoolean683)
-						Texture.method378(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], Class40.anIntArray690[0], Class40.anIntArray690[1], Class40.anIntArray690[3], Class40.anIntArray691[0], Class40.anIntArray691[1], Class40.anIntArray691[3], Class40.anIntArray692[0], Class40.anIntArray692[1], Class40.anIntArray692[3], class40.anIntArray682[j2]);
+					if (class43.aBoolean721)
+						Texture.drawTexturedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720);
 					else
-						Texture.method378(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], Class40.anIntArray690[l2], Class40.anIntArray690[j3], Class40.anIntArray690[l3], Class40.anIntArray691[l2], Class40.anIntArray691[j3], Class40.anIntArray691[l3], Class40.anIntArray692[l2], Class40.anIntArray692[j3], Class40.anIntArray692[l3], class40.anIntArray682[j2]);
+						Texture.drawTexturedTriangle(j6, l6, l5, i6, k6, k5, class43.anInt718, class43.anInt719, class43.anInt717, l2, l1, i3, j4, k4, i4, k3, j3, j2, class43.anInt720);
 				} else {
-					int k5 = anIntArray485[class40.anIntArray682[j2]];
-					Texture.method374(l4, i5, j5, i4, j4, k4, method317(k5, class40.anIntArray676[j2]), method317(k5, class40.anIntArray677[j2]), method317(k5, class40.anIntArray678[j2]));
+					int i7 = anIntArray485[class43.anInt720];
+					Texture.drawShadedTriangle(j6, l6, l5, i6, k6, k5, method317(i7, class43.anInt718), method317(i7, class43.anInt719), method317(i7, class43.anInt717));
+				}
+			}
+			if ((i5 - k5) * (l6 - l5) - (j5 - l5) * (k6 - k5) > 0) {
+				Texture.aBoolean1462 = i5 < 0 || k5 < 0 || k6 < 0 || i5 > DrawingArea.centerX || k5 > DrawingArea.centerX || k6 > DrawingArea.centerX;
+				if (aBoolean467 && method318(anInt468, anInt469, j5, l5, l6, i5, k5, k6)) {
+					anInt470 = j1;
+					anInt471 = k1;
+				}
+				if (class43.anInt720 == -1) {
+					if (class43.anInt716 != 0xbc614e) {
+						Texture.drawShadedTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719);
+					}
+				} else {
+					if (!lowMem) {
+						Texture.drawTexturedTriangle(j5, l5, l6, i5, k5, k6, class43.anInt716, class43.anInt717, class43.anInt719, i2, i3, l1, l3, i4, k4, k2, j2, j3, class43.anInt720);
+						return;
+					}
+					int j7 = anIntArray485[class43.anInt720];
+					Texture.drawShadedTriangle(j5, l5, l6, i5, k5, k6, method317(j7, class43.anInt716), method317(j7, class43.anInt717), method317(j7, class43.anInt719));
 				}
 			}
 		}
-
-	}
+	
+		private void method316(int i, int j, int k, Class40 class40, int l, int i1, int j1) {
+			int k1 = class40.anIntArray673.length;
+			for (int l1 = 0; l1 < k1; l1++) {
+				int i2 = class40.anIntArray673[l1] - anInt455;
+				int k2 = class40.anIntArray674[l1] - anInt456;
+				int i3 = class40.anIntArray675[l1] - anInt457;
+				int k3 = i3 * k + i2 * j1 >> 16;
+				i3 = i3 * j1 - i2 * k >> 16;
+				i2 = k3;
+				k3 = k2 * l - i3 * j >> 16;
+				i3 = k2 * j + i3 * l >> 16;
+				k2 = k3;
+				if (i3 < 50)
+					return;
+				if (class40.anIntArray682 != null) {
+					Class40.anIntArray690[l1] = i2;
+					Class40.anIntArray691[l1] = k2;
+					Class40.anIntArray692[l1] = i3;
+				}
+				Class40.anIntArray688[l1] = Texture.textureInt1 + (i2 << viewDistance) / i3;
+				Class40.anIntArray689[l1] = Texture.textureInt2 + (k2 << viewDistance) / i3;
+			}
+	
+			Texture.anInt1465 = 0;
+			k1 = class40.anIntArray679.length;
+			for (int j2 = 0; j2 < k1; j2++) {
+				int l2 = class40.anIntArray679[j2];
+				int j3 = class40.anIntArray680[j2];
+				int l3 = class40.anIntArray681[j2];
+				int i4 = Class40.anIntArray688[l2];
+				int j4 = Class40.anIntArray688[j3];
+				int k4 = Class40.anIntArray688[l3];
+				int l4 = Class40.anIntArray689[l2];
+				int i5 = Class40.anIntArray689[j3];
+				int j5 = Class40.anIntArray689[l3];
+				if ((i4 - j4) * (j5 - i5) - (l4 - i5) * (k4 - j4) > 0) {
+					Texture.aBoolean1462 = i4 < 0 || j4 < 0 || k4 < 0 || i4 > DrawingArea.centerX || j4 > DrawingArea.centerX || k4 > DrawingArea.centerX;
+					if (aBoolean467 && method318(anInt468, anInt469, l4, i5, j5, i4, j4, k4)) {
+						anInt470 = i;
+						anInt471 = i1;
+					}
+					if (class40.anIntArray682 == null || class40.anIntArray682[j2] == -1) {
+						if (class40.anIntArray676[j2] != 0xbc614e)
+							Texture.drawShadedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2]);
+					} else if (!lowMem) {
+						if (class40.aBoolean683)
+							Texture.drawTexturedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], Class40.anIntArray690[0], Class40.anIntArray690[1], Class40.anIntArray690[3], Class40.anIntArray691[0], Class40.anIntArray691[1], Class40.anIntArray691[3], Class40.anIntArray692[0], Class40.anIntArray692[1], Class40.anIntArray692[3], class40.anIntArray682[j2]);
+						else
+							Texture.drawTexturedTriangle(l4, i5, j5, i4, j4, k4, class40.anIntArray676[j2], class40.anIntArray677[j2], class40.anIntArray678[j2], Class40.anIntArray690[l2], Class40.anIntArray690[j3], Class40.anIntArray690[l3], Class40.anIntArray691[l2], Class40.anIntArray691[j3], Class40.anIntArray691[l3], Class40.anIntArray692[l2], Class40.anIntArray692[j3], Class40.anIntArray692[l3], class40.anIntArray682[j2]);
+					} else {
+						int k5 = anIntArray485[class40.anIntArray682[j2]];
+						Texture.drawShadedTriangle(l4, i5, j5, i4, j4, k4, method317(k5, class40.anIntArray676[j2]), method317(k5, class40.anIntArray677[j2]), method317(k5, class40.anIntArray678[j2]));
+					}
+				}
+			}
+	
+		}
 
 	private int method317(int j, int k) {
 		k = 127 - k;
@@ -1625,115 +1630,118 @@ final class WorldController {
 	}
 
 	private boolean method320(int i, int j, int k) {
-		int l = anIntArrayArrayArray445[i][j][k];
-		if (l == -anInt448)
-			return false;
-		if (l == anInt448)
-			return true;
-		int i1 = j << 7;
-		int j1 = k << 7;
-		if (method324(i1 + 1, anIntArrayArrayArray440[i][j][k], j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k], j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k + 1], (j1 + 128) - 1) && method324(i1 + 1, anIntArrayArrayArray440[i][j][k + 1], (j1 + 128) - 1)) {
-			anIntArrayArrayArray445[i][j][k] = anInt448;
-			return true;
-		} else {
-			anIntArrayArrayArray445[i][j][k] = -anInt448;
-			return false;
-		}
+//		int l = anIntArrayArrayArray445[i][j][k];
+//		if (l == -anInt448)
+//			return false;
+//		if (l == anInt448)
+//			return true;
+//		int i1 = j << 7;
+//		int j1 = k << 7;
+//		if (method324(i1 + 1, anIntArrayArrayArray440[i][j][k], j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k], j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k + 1], (j1 + 128) - 1) && method324(i1 + 1, anIntArrayArrayArray440[i][j][k + 1], (j1 + 128) - 1)) {
+//			anIntArrayArrayArray445[i][j][k] = anInt448;
+//			return true;
+//		} else {
+//			anIntArrayArrayArray445[i][j][k] = -anInt448;
+//			return false;
+//		}
+		return false;
 	}
 
 	private boolean method321(int i, int j, int k, int l) {
-		if (!method320(i, j, k))
-			return false;
-		int i1 = j << 7;
-		int j1 = k << 7;
-		int k1 = anIntArrayArrayArray440[i][j][k] - 1;
-		int l1 = k1 - 120;
-		int i2 = k1 - 230;
-		int j2 = k1 - 238;
-		if (l < 16) {
-			if (l == 1) {
-				if (i1 > anInt455) {
-					if (!method324(i1, k1, j1))
-						return false;
-					if (!method324(i1, k1, j1 + 128))
-						return false;
-				}
-				if (i > 0) {
-					if (!method324(i1, l1, j1))
-						return false;
-					if (!method324(i1, l1, j1 + 128))
-						return false;
-				}
-				return method324(i1, i2, j1) && method324(i1, i2, j1 + 128);
-			}
-			if (l == 2) {
-				if (j1 < anInt457) {
-					if (!method324(i1, k1, j1 + 128))
-						return false;
-					if (!method324(i1 + 128, k1, j1 + 128))
-						return false;
-				}
-				if (i > 0) {
-					if (!method324(i1, l1, j1 + 128))
-						return false;
-					if (!method324(i1 + 128, l1, j1 + 128))
-						return false;
-				}
-				return method324(i1, i2, j1 + 128) && method324(i1 + 128, i2, j1 + 128);
-			}
-			if (l == 4) {
-				if (i1 < anInt455) {
-					if (!method324(i1 + 128, k1, j1))
-						return false;
-					if (!method324(i1 + 128, k1, j1 + 128))
-						return false;
-				}
-				if (i > 0) {
-					if (!method324(i1 + 128, l1, j1))
-						return false;
-					if (!method324(i1 + 128, l1, j1 + 128))
-						return false;
-				}
-				return method324(i1 + 128, i2, j1) && method324(i1 + 128, i2, j1 + 128);
-			}
-			if (l == 8) {
-				if (j1 > anInt457) {
-					if (!method324(i1, k1, j1))
-						return false;
-					if (!method324(i1 + 128, k1, j1))
-						return false;
-				}
-				if (i > 0) {
-					if (!method324(i1, l1, j1))
-						return false;
-					if (!method324(i1 + 128, l1, j1))
-						return false;
-				}
-				return method324(i1, i2, j1) && method324(i1 + 128, i2, j1);
-			}
-		}
-		if (!method324(i1 + 64, j2, j1 + 64))
-			return false;
-		if (l == 16)
-			return method324(i1, i2, j1 + 128);
-		if (l == 32)
-			return method324(i1 + 128, i2, j1 + 128);
-		if (l == 64)
-			return method324(i1 + 128, i2, j1);
-		if (l == 128) {
-			return method324(i1, i2, j1);
-		} else {
-			System.out.println("Warning unsupported wall type");
-			return true;
-		}
+//		if (!method320(i, j, k))
+//			return false;
+//		int i1 = j << 7;
+//		int j1 = k << 7;
+//		int k1 = anIntArrayArrayArray440[i][j][k] - 1;
+//		int l1 = k1 - 120;
+//		int i2 = k1 - 230;
+//		int j2 = k1 - 238;
+//		if (l < 16) {
+//			if (l == 1) {
+//				if (i1 > anInt455) {
+//					if (!method324(i1, k1, j1))
+//						return false;
+//					if (!method324(i1, k1, j1 + 128))
+//						return false;
+//				}
+//				if (i > 0) {
+//					if (!method324(i1, l1, j1))
+//						return false;
+//					if (!method324(i1, l1, j1 + 128))
+//						return false;
+//				}
+//				return method324(i1, i2, j1) && method324(i1, i2, j1 + 128);
+//			}
+//			if (l == 2) {
+//				if (j1 < anInt457) {
+//					if (!method324(i1, k1, j1 + 128))
+//						return false;
+//					if (!method324(i1 + 128, k1, j1 + 128))
+//						return false;
+//				}
+//				if (i > 0) {
+//					if (!method324(i1, l1, j1 + 128))
+//						return false;
+//					if (!method324(i1 + 128, l1, j1 + 128))
+//						return false;
+//				}
+//				return method324(i1, i2, j1 + 128) && method324(i1 + 128, i2, j1 + 128);
+//			}
+//			if (l == 4) {
+//				if (i1 < anInt455) {
+//					if (!method324(i1 + 128, k1, j1))
+//						return false;
+//					if (!method324(i1 + 128, k1, j1 + 128))
+//						return false;
+//				}
+//				if (i > 0) {
+//					if (!method324(i1 + 128, l1, j1))
+//						return false;
+//					if (!method324(i1 + 128, l1, j1 + 128))
+//						return false;
+//				}
+//				return method324(i1 + 128, i2, j1) && method324(i1 + 128, i2, j1 + 128);
+//			}
+//			if (l == 8) {
+//				if (j1 > anInt457) {
+//					if (!method324(i1, k1, j1))
+//						return false;
+//					if (!method324(i1 + 128, k1, j1))
+//						return false;
+//				}
+//				if (i > 0) {
+//					if (!method324(i1, l1, j1))
+//						return false;
+//					if (!method324(i1 + 128, l1, j1))
+//						return false;
+//				}
+//				return method324(i1, i2, j1) && method324(i1 + 128, i2, j1);
+//			}
+//		}
+//		if (!method324(i1 + 64, j2, j1 + 64))
+//			return false;
+//		if (l == 16)
+//			return method324(i1, i2, j1 + 128);
+//		if (l == 32)
+//			return method324(i1 + 128, i2, j1 + 128);
+//		if (l == 64)
+//			return method324(i1 + 128, i2, j1);
+//		if (l == 128) {
+//			return method324(i1, i2, j1);
+//		} else {
+//			System.out.println("Warning unsupported wall type");
+//			return true;
+//		}
+		return false;
 	}
 
 	private boolean method322(int i, int j, int k, int l) {
-		if (!method320(i, j, k))
-			return false;
-		int i1 = j << 7;
-		int j1 = k << 7;
-		return method324(i1 + 1, anIntArrayArrayArray440[i][j][k] - l, j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k] - l, j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k + 1] - l, (j1 + 128) - 1) && method324(i1 + 1, anIntArrayArrayArray440[i][j][k + 1] - l, (j1 + 128) - 1);
+//		if (!method320(i, j, k))
+//			return false;
+//		int i1 = j << 7;
+//		int j1 = k << 7;
+//		return method324(i1 + 1, anIntArrayArrayArray440[i][j][k] - l, j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k] - l, j1 + 1) && method324((i1 + 128) - 1, anIntArrayArrayArray440[i][j + 1][k + 1] - l, (j1 + 128) - 1) && method324(i1 + 1, anIntArrayArrayArray440[i][j][k + 1] - l, (j1 + 128) - 1);
+		return false;
 	}
 
 	private boolean method323(int i, int j, int k, int l, int i1, int j1) {

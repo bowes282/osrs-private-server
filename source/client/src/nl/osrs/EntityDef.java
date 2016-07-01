@@ -184,7 +184,8 @@ public final class EntityDef {
 
 			}
 			model.method469();
-			model.method479(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
+			model.method479(84 + anInt85, 1000 + anInt92, -90, -580, -90, true);
+//			model.method479(64 + anInt85, 850 + anInt92, -30, -50, -30, true);
 			mruNodes.removeFromCache(model, interfaceType);
 		}
 		Model model_1 = Model.aModel_1621;

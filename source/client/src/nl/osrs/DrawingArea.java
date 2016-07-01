@@ -1,4 +1,7 @@
 package nl.osrs;
+
+import nl.osrs.NodeSub;
+
 public class DrawingArea extends NodeSub {
 
 	public static void initDrawingArea(int i, int j, int ai[])
@@ -86,31 +89,31 @@ public class DrawingArea extends NodeSub {
 
 	}	
 
-	public static void method335(int i, int j, int k, int l, int i1, int k1)
+	public static void method335(int i, int yPos, int width, int height, int i1, int xPos)
 	{
-		if(k1 < topX)
+		if(xPos < topX)
 		{
-			k -= topX - k1;
-			k1 = topX;
+			width -= topX - xPos;
+			xPos = topX;
 		}
-		if(j < topY)
+		if(yPos < topY)
 		{
-			l -= topY - j;
-			j = topY;
+			height -= topY - yPos;
+			yPos = topY;
 		}
-		if(k1 + k > bottomX)
-			k = bottomX - k1;
-		if(j + l > bottomY)
-			l = bottomY - j;
+		if(xPos + width > bottomX)
+			width = bottomX - xPos;
+		if(yPos + height > bottomY)
+			height = bottomY - yPos;
 		int l1 = 256 - i1;
 		int i2 = (i >> 16 & 0xff) * i1;
 		int j2 = (i >> 8 & 0xff) * i1;
 		int k2 = (i & 0xff) * i1;
-		int k3 = width - k;
-		int l3 = k1 + j * width;
-		for(int i4 = 0; i4 < l; i4++)
+		int k3 = DrawingArea.width - width;
+		int l3 = xPos + yPos * DrawingArea.width;
+		for(int i4 = 0; i4 < height; i4++)
 		{
-			for(int j4 = -k; j4 < 0; j4++)
+			for(int j4 = -width; j4 < 0; j4++)
 			{
 				int l2 = (pixels[l3] >> 16 & 0xff) * l1;
 				int i3 = (pixels[l3] >> 8 & 0xff) * l1;
@@ -123,28 +126,28 @@ public class DrawingArea extends NodeSub {
 		}
 	}
 	
-	public static void drawPixels(int i, int j, int k, int l, int i1)
+	public static void drawPixels(int height, int yPos, int xPos, int color, int width)
 	{
-		if(k < topX)
+		if(xPos < topX)
 		{
-			i1 -= topX - k;
-			k = topX;
+			width -= topX - xPos;
+			xPos = topX;
 		}
-		if(j < topY)
+		if(yPos < topY)
 		{
-			i -= topY - j;
-			j = topY;
+			height -= topY - yPos;
+			yPos = topY;
 		}
-		if(k + i1 > bottomX)
-			i1 = bottomX - k;
-		if(j + i > bottomY)
-			i = bottomY - j;
-		int k1 = width - i1;
-		int l1 = k + j * width;
-		for(int i2 = -i; i2 < 0; i2++)
+		if(xPos + width > bottomX)
+			width = bottomX - xPos;
+		if(yPos + height > bottomY)
+			height = bottomY - yPos;
+		int k1 = DrawingArea.width - width;
+		int l1 = xPos + yPos * DrawingArea.width;
+		for(int i2 = -height; i2 < 0; i2++)
 		{
-			for(int j2 = -i1; j2 < 0; j2++)
-				pixels[l1++] = l;
+			for(int j2 = -width; j2 < 0; j2++)
+				pixels[l1++] = color;
 
 			l1 += k1;
 		}
@@ -257,7 +260,7 @@ public class DrawingArea extends NodeSub {
 
 	DrawingArea() {}
 
-	public static int pixels[];
+	public static int[] pixels;
 	public static int width;
 	public static int height;
 	public static int topY;

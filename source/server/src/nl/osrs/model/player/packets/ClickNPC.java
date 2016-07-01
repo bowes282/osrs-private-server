@@ -7,6 +7,7 @@ import nl.osrs.model.npc.NPCHandler;
 import nl.osrs.model.player.Client;
 import nl.osrs.model.player.PacketType;
 import nl.osrs.model.player.Player;
+import nl.osrs.script.ScriptLoader;
 import nl.osrs.task.Task;
 
 /**
@@ -192,12 +193,15 @@ public class ClickNPC implements PacketType {
 		case FIRST_CLICK:
 			c.npcClickIndex = c.inStream.readSignedWordBigEndian();
 			c.npcType = NPCHandler.npcs[c.npcClickIndex].npcType;
+			c.clickNpcType = 1;
 			if(c.goodDistance(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), c.getX(), c.getY(), 1)) {
 				c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 				NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-				c.getActions().firstClickNpc(c.npcType);	
+				
+				NPC npc = NPCHandler.npcs[c.npcClickIndex];
+				
+				ScriptLoader.executeScript("npc", "click", c, npc);
 			} else {
-				c.clickNpcType = 1;
 				c.getTaskScheduler().schedule(new Task(1) {
 					@Override
 					public void execute() {
@@ -205,8 +209,11 @@ public class ClickNPC implements PacketType {
 							if(c.goodDistance(c.getX(), c.getY(), NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), 1)) {
 								c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 								NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-								c.getActions().firstClickNpc(c.npcType);
-								this.stop();
+								
+								NPC npc = NPCHandler.npcs[c.npcClickIndex];
+								
+								if (ScriptLoader.executeScript("npc", "click", c, npc))
+									this.stop();
 							}
 						}
 						if(c.clickNpcType == 0 || c.clickNpcType > 1) 
@@ -224,12 +231,15 @@ public class ClickNPC implements PacketType {
 		case SECOND_CLICK:
 			c.npcClickIndex = c.inStream.readUnsignedWordBigEndianA();
 			c.npcType = NPCHandler.npcs[c.npcClickIndex].npcType;
+			c.clickNpcType = 2;
 			if(c.goodDistance(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), c.getX(), c.getY(), 1)) {
 				c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 				NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-				c.getActions().secondClickNpc(c.npcType);	
+				
+				NPC npc = NPCHandler.npcs[c.npcClickIndex];
+				
+				ScriptLoader.executeScript("npc", "click", c, npc);
 			} else {
-				c.clickNpcType = 2;
 				c.getTaskScheduler().schedule(new Task(4) {
 					@Override
 					public void execute() {
@@ -237,8 +247,11 @@ public class ClickNPC implements PacketType {
 							if(c.goodDistance(c.getX(), c.getY(), NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), 1)) {
 								c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 								NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-								c.getActions().secondClickNpc(c.npcType);
-								this.stop();
+								
+								NPC npc = NPCHandler.npcs[c.npcClickIndex];
+								
+								if (ScriptLoader.executeScript("npc", "click", c, npc))
+									this.stop();
 							}
 						}
 						if(c.clickNpcType < 2 || c.clickNpcType > 2) 
@@ -256,12 +269,15 @@ public class ClickNPC implements PacketType {
 		case THIRD_CLICK:
 			c.npcClickIndex = c.inStream.readSignedWord();
 			c.npcType = NPCHandler.npcs[c.npcClickIndex].npcType;
+			c.clickNpcType = 3;
 			if(c.goodDistance(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), c.getX(), c.getY(), 1)) {
 				c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 				NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-				c.getActions().thirdClickNpc(c.npcType);	
+				
+				NPC npc = NPCHandler.npcs[c.npcClickIndex];
+				
+				ScriptLoader.executeScript("npc", "click", c, npc);
 			} else {
-				c.clickNpcType = 3;
 				c.getTaskScheduler().schedule(new Task(4) {
 					@Override
 					public void execute() {
@@ -269,8 +285,11 @@ public class ClickNPC implements PacketType {
 							if(c.goodDistance(c.getX(), c.getY(), NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY(), 1)) {
 								c.turnPlayerTo(NPCHandler.npcs[c.npcClickIndex].getX(), NPCHandler.npcs[c.npcClickIndex].getY());
 								NPCHandler.npcs[c.npcClickIndex].facePlayer(c.playerId);
-								c.getActions().thirdClickNpc(c.npcType);
-								this.stop();
+								
+								NPC npc = NPCHandler.npcs[c.npcClickIndex];
+								
+								if (ScriptLoader.executeScript("npc", "click", c, npc))
+									this.stop();
 							}
 						}
 						if(c.clickNpcType < 3) 

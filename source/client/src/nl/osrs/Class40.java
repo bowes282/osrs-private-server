@@ -254,6 +254,7 @@ final class Class40
 	static final int[] anIntArray690 = new int[6];
 	static final int[] anIntArray691 = new int[6];
 	static final int[] anIntArray692 = new int[6];
+	static final int[] depthPoint = new int[6];
 	static final int[] anIntArray693 = {
 		1, 0
 	};

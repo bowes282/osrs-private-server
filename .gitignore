@@ -52,6 +52,8 @@ local.properties
 # Node
 node_modules/
 
+MapEditor/
+
 # Built files
 build/
 
@@ -60,3 +62,5 @@ data/server/characters/
 
 # Personal batch files
 *.bat
+
+misc/

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressIndicator?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="600.0" prefWidth="846.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.65" fx:controller="nl.osrs.scene.controllers.LoadingScreenController">
+   <children>
+      <ProgressIndicator layoutX="348.0" layoutY="244.0" prefHeight="153.0" prefWidth="154.0" />
+      <Label layoutX="141.0" layoutY="134.0" text="Please wait - loading items">
+         <font>
+            <Font size="48.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

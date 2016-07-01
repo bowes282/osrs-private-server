@@ -12,7 +12,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		myHeight = i;
 		gameFrame = new RSFrame(this, myWidth, myHeight);
 		graphics = getGameComponent().getGraphics();
-		fullGameScreen = new ImageProducer(myWidth, myHeight);
+		fullGameScreen = new RSImageProducer(myWidth, myHeight);
 		startRunnable(this, 1);
 	}
 
@@ -20,7 +20,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 		myWidth = j;
 		myHeight = i;
 		graphics = getGameComponent().getGraphics();
-		fullGameScreen = new ImageProducer(myWidth, myHeight);
+		fullGameScreen = new RSImageProducer(myWidth, myHeight);
 		startRunnable(this, 1);
 	}
 
@@ -538,7 +538,7 @@ public class RSApplet extends Applet implements Runnable, MouseListener, MouseMo
 	int myWidth;
 	int myHeight;
 	Graphics graphics;
-	ImageProducer fullGameScreen;
+	RSImageProducer fullGameScreen;
 	RSFrame gameFrame;
 	private boolean shouldClearScreen;
 	boolean awtFocus;

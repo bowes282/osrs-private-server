@@ -25,8 +25,17 @@ public class ItemHandler {
 	public List<GroundItem> groundItems = new ArrayList<GroundItem>();
 	public static final int HIDE_TICKS = 100;
 	
+	public static final int ITEM_COUNT = 12000;
+	
 	public ItemHandler() {	
-		items = ItemLoader.loadItems();
+		load();
+	}
+	
+	public static void load() {
+		items = new Item[ITEM_COUNT];
+		
+		for (Item item : ItemLoader.getItems())
+			items[item.getId()] = item;
 	}
 
 	/**

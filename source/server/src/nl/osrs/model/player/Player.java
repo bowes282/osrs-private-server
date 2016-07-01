@@ -606,7 +606,7 @@ public abstract class Player {
 
 		for (int i = 0; i < playerXP.length; i++) {
 			if (i == 3) {
-				playerXP[i] = 1300;
+				playerXP[i] = 900;
 			} else {
 				playerXP[i] = 0;
 			}
@@ -1730,6 +1730,10 @@ public abstract class Player {
 			hitDiff2 = damage;
 		}
 		updateRequired = true;
+	}
+	
+	public boolean hasLevel(int level, int skill) {
+		return PlayerAssistant.getLevelForXP(playerXP[skill]) >= level;
 	}
 
 }

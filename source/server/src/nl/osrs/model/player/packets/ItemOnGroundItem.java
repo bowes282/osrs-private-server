@@ -1,8 +1,10 @@
 package nl.osrs.model.player.packets;
 
+import nl.osrs.model.item.ItemHandler;
 import nl.osrs.model.player.Client;
 import nl.osrs.model.player.PacketType;
-import nl.osrs.util.Misc;
+import nl.osrs.script.ScriptLoader;
+import nl.osrs.task.Task;
 
 @SuppressWarnings("all")
 public class ItemOnGroundItem implements PacketType {
@@ -16,13 +18,18 @@ public class ItemOnGroundItem implements PacketType {
 		int itemUsedSlot = c.getInStream().readSignedWordBigEndianA();
 		int gItemX = c.getInStream().readUnsignedWord();
 		
-		switch(itemUsed) {
+		c.getTaskScheduler().stopTasks();
+		c.getPA().removeAllWindows();
 		
-		default:
-			if(c.playerRights == 3)
-				Misc.println("ItemUsed "+itemUsed+" on Ground Item "+groundItem);
-			break;
-		}
+		c.getTaskScheduler().schedule(new Task(1, true) {
+			@Override
+			protected void execute() {
+					if (ScriptLoader.executeScript("item",
+							"useItemOnGroundItem", c, ItemHandler.getItem(itemUsed),
+							itemUsedSlot, ItemHandler.getItem(groundItem), gItemX, gItemY))
+						this.stop();
+			}
+		});
 	}
 
 }

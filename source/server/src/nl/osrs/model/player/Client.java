@@ -28,7 +28,6 @@ public class Client extends Player {
 	private TradeAndDuel tradeAndDuel = new TradeAndDuel(this);
 	private PlayerAssistant playerAssistant = new PlayerAssistant(this);
 	private CombatAssistant combatAssistant = new CombatAssistant(this);
-	private ActionsPerformed actionHandler = new ActionsPerformed(this);
 	private PlayerKilling playerKilling = new PlayerKilling(this);
 	private DialogueHandler dialogueHandler = new DialogueHandler(this);
 	private Queue<Packet> queuedPackets = new LinkedList<Packet>();
@@ -502,10 +501,6 @@ public class Client extends Player {
 		return combatAssistant;
 	}
 
-	public ActionsPerformed getActions() {
-		return actionHandler;
-	}
-
 	public PlayerKilling getKill() {
 		return playerKilling;
 	}
@@ -551,6 +546,7 @@ public class Client extends Player {
 	}
 
 	private boolean canWalk = true;
+	public int clickedItemType = 0;
 
 	public boolean canWalk() {
 		return canWalk;

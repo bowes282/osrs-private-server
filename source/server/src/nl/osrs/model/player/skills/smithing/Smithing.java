@@ -99,7 +99,7 @@ public class Smithing {
 			
 			boolean hasEnoughBars = client.getItems().playerHasItem(item.getBar().getId(), item.getBarAmount());
 			color = hasEnoughBars ? "@gre@" : "@red@";
-			String text = color + item.getBarAmount() + "Bar";
+			String text = color + item.getBarAmount() + " Bar";
 			
 			if (item.getBarAmount() > 1)
 				text += "s";
@@ -125,24 +125,27 @@ public class Smithing {
 		ArrayList<SmithingItem> items = new ArrayList<>();
 
 		items.add(new SmithingItem(Bar.BRONZE, 1, 1, 1, 1, 1205, 1)); //Dagger
-		items.add(new SmithingItem(Bar.BRONZE, 2, 2, 1, 4, 1321, 1)); //Scimitar
-		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 1, 9, 1307, 1)); //2H
-		items.add(new SmithingItem(Bar.BRONZE, 2, 4, 1, 4, 11367, 1)); //Hasta
 		items.add(new SmithingItem(Bar.BRONZE, 1, 1, 2, 2, 1351, 1)); //Axe
-		items.add(new SmithingItem(Bar.BRONZE, 1, 2, 2, 2, 1265, 1)); //Pickaxe
-		items.add(new SmithingItem(Bar.BRONZE, 1, 3, 2, 8, 8844, 1)); //Defender
-		items.add(new SmithingItem(Bar.BRONZE, 1, 4, 2, 5, 9420, 1)); //Limb
 		items.add(new SmithingItem(Bar.BRONZE, 1, 1, 3, 1, 1139, 1)); //Med helm
-		items.add(new SmithingItem(Bar.BRONZE, 2, 2, 3, 5, 1103, 1)); //Chainbody
-		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 3, 3, 1087, 1)); //Plateskirt
-		items.add(new SmithingItem(Bar.BRONZE, 2, 4, 3, 4, 1173, 1)); //Sq shield
 		items.add(new SmithingItem(Bar.BRONZE, 2, 1, 4, 6, 1155, 1)); //Full helm
-		items.add(new SmithingItem(Bar.BRONZE, 5, 2, 4, 10, 1117, 1)); //Platebody
-		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 4, 8, 1075, 1)); //Platelegs
-		items.add(new SmithingItem(Bar.BRONZE, 3, 4, 4, 9, 1189, 1)); //Kite shield
 		items.add(new SmithingItem(Bar.BRONZE, 1, 1, 5, 3, 39, 15)); //Arrowtips
+		
+		items.add(new SmithingItem(Bar.BRONZE, 2, 2, 1, 4, 1321, 1)); //Scimitar
+		items.add(new SmithingItem(Bar.BRONZE, 1, 2, 2, 2, 1265, 1)); //Pickaxe
+		items.add(new SmithingItem(Bar.BRONZE, 2, 2, 3, 5, 1103, 1)); //Chainbody
+		items.add(new SmithingItem(Bar.BRONZE, 5, 2, 4, 10, 1117, 1)); //Platebody
 		items.add(new SmithingItem(Bar.BRONZE, 1, 2, 5, 3, 9375, 10)); //Bronze bolts (unf)
+		
+		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 1, 9, 1307, 1)); //2H
+		items.add(new SmithingItem(Bar.BRONZE, 1, 3, 2, 8, 8844, 1)); //Defender
+		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 3, 3, 1087, 1)); //Plateskirt
+		items.add(new SmithingItem(Bar.BRONZE, 3, 3, 4, 8, 1075, 1)); //Platelegs
 		items.add(new SmithingItem(Bar.BRONZE, 1, 3, 5, 7, 7454, 1)); //Bronze gauntlets
+		
+		items.add(new SmithingItem(Bar.BRONZE, 2, 4, 1, 4, 11367, 1)); //Hasta
+		items.add(new SmithingItem(Bar.BRONZE, 1, 4, 2, 5, 9420, 1)); //Limb
+		items.add(new SmithingItem(Bar.BRONZE, 2, 4, 3, 4, 1173, 1)); //Sq shield
+		items.add(new SmithingItem(Bar.BRONZE, 3, 4, 4, 9, 1189, 1)); //Kite shield
 		items.add(new SmithingItem(Bar.BRONZE, 1, 4, 5, 7, 4119, 1)); //Bronze boots
 		
 		smithingItems.put(Bar.BRONZE, items);

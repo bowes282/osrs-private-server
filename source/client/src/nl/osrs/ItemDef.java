@@ -347,7 +347,7 @@ public final class ItemDef {
 		int j3 = DrawingArea.bottomY;
 		Texture.aBoolean1464 = false;
 		DrawingArea.initDrawingArea(32, 32, enabledSprite.myPixels);
-		DrawingArea.method336(32, 0, 0, 0, 32);
+		DrawingArea.drawPixels(32, 0, 0, 0, 32);
 		Texture.method364();
 		int k3 = itemDef.modelZoom;
 		if (k == -1)

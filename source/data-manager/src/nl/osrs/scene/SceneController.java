@@ -9,15 +9,21 @@ import javafx.scene.Scene;
 public abstract class SceneController {
 	public abstract void loadScene();
 	
-	protected void loadScene(String url) {
+	protected void switchScene(String fxmlFileName) {
+		Scene scene = loadScene(fxmlFileName);
+		
+		SceneManager.switchScene(scene);
+	}
+	
+	public Scene loadScene(String fxmlFileName) {
 		Parent root = null;
+		
 		try {
-			root = FXMLLoader.load(getClass().getClassLoader().getResource(url));
+			root = FXMLLoader.load(getClass().getClassLoader().getResource("resources/" + fxmlFileName + ".fxml"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Scene scene = new Scene(root);
 		
-		SceneManager.switchScene(scene);
+		return new Scene(root);
 	}
 }

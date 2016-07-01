@@ -21,6 +21,9 @@ public class DropItem implements PacketType {
 			return;
 		}
 
+		c.getTaskScheduler().stopTasks();
+		c.getPA().removeAllWindows();
+
 		boolean droppable = true;
 		for (int i : Settings.UNDROPPABLE_ITEMS) {
 			if (i == itemId) {

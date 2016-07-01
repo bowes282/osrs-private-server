@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="846.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.osrs.scene.controllers.ItemManagerController">
+   <children>
+      <TitledPane fx:id="generalInformationPane" animated="false" collapsible="false" layoutX="226.0" layoutY="14.0" prefHeight="179.0" prefWidth="298.0" text="General Information">
+         <content>
+            <GridPane>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="283.0" minWidth="10.0" prefWidth="71.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="523.0" minWidth="10.0" prefWidth="205.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="ID" />
+                  <Label text="Name" GridPane.rowIndex="1" />
+                  <Label text="Value" GridPane.rowIndex="2" />
+                  <TextField fx:id="idField" editable="false" prefHeight="25.0" prefWidth="239.0" GridPane.columnIndex="1" />
+                  <TextField fx:id="nameField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="valueField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+               </children>
+            </GridPane>
+         </content>
+      </TitledPane>
+      <Accordion fx:id="specificInformationHolder" layoutX="228.0" layoutY="207.0" prefHeight="379.0" prefWidth="540.0">
+        <panes>
+          <TitledPane fx:id="combatPane" animated="false" prefHeight="354.0" prefWidth="528.0" text="Combat stats">
+               <content>
+                  <GridPane style="-fx-padding: 0;">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="50.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" percentHeight="100.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <TitledPane fx:id="generalCombatPane" animated="false" collapsible="false" prefHeight="402.0" prefWidth="307.0" text="General">
+                           <content>
+                              <AnchorPane>
+                                 <children>
+                                    <Label layoutX="14.0" layoutY="14.0" text="Equipment slot" />
+                                    <ComboBox fx:id="equipmentSlotField" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="271.0" />
+                                 </children>
+                              </AnchorPane>
+                           </content></TitledPane>
+                      <TitledPane fx:id="bonusesPane" animated="false" collapsible="false" prefHeight="431.0" prefWidth="301.0" text="Bonuses" GridPane.columnIndex="1">
+                           <content>
+                              <GridPane>
+                                <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="63.0" minWidth="10.0" percentWidth="15.0" prefWidth="49.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" percentWidth="35.0" prefWidth="105.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="105.0" minWidth="10.0" percentWidth="5.0" prefWidth="105.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="79.0" minWidth="10.0" percentWidth="15.0" prefWidth="50.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="35.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" percentWidth="5.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                    <RowConstraints maxHeight="47.0" minHeight="10.0" prefHeight="47.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="31.0" minHeight="10.0" prefHeight="25.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <TextField fx:id="stabAttackField" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="stabDefenceField" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                                    <TextField fx:id="slashAttackField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="slashDefenceField" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                                    <TextField fx:id="crushAttackField" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="crushDefenceField" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                                    <TextField fx:id="magicAttackField" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="magicDefenceField" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                                    <TextField fx:id="rangedAttackField" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="rangedDefenceField" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                                    <TextField fx:id="meleeStrengthField" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="rangedStrengthField" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="prayerBonusField" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" layoutX="6.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@../../resources/Attack-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3">
+                                       <image>
+                                          <Image url="@../../resources/Defence-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="1">
+                                       <image>
+                                          <Image url="@../../resources/Stab.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="2">
+                                       <image>
+                                          <Image url="@../../resources/Slash.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="3">
+                                       <image>
+                                          <Image url="@../../resources/Crush.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="4">
+                                       <image>
+                                          <Image url="@../../resources/Magic-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="5">
+                                       <image>
+                                          <Image url="@../../resources/Ranged-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="6">
+                                       <image>
+                                          <Image url="@../../resources/Strength-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.rowIndex="7">
+                                       <image>
+                                          <Image url="@../../resources/RangedStrength-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                                       <image>
+                                          <Image url="@../../resources/Stab.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                                       <image>
+                                          <Image url="@../../resources/Slash.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                                       <image>
+                                          <Image url="@../../resources/Crush.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                                       <image>
+                                          <Image url="@../../resources/Magic-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                                       <image>
+                                          <Image url="@../../resources/Ranged-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="3" GridPane.rowIndex="6">
+                                       <image>
+                                          <Image url="@../../resources/Prayer-icon.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label text="Offensive" GridPane.columnIndex="1">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                    <Label text="Defensive" GridPane.columnIndex="4">
+                                       <font>
+                                          <Font name="System Bold" size="14.0" />
+                                       </font>
+                                    </Label>
+                                 </children>
+                              </GridPane>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </GridPane>
+               </content>
+            </TitledPane>
+          <TitledPane fx:id="interactionsPane" animated="false" text="Interactions">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <Label layoutX="14.0" layoutY="14.0" text="Item first click" />
+                        <TextField fx:id="firstClickField" layoutX="14.0" layoutY="31.0" prefHeight="25.0" prefWidth="276.0" />
+                        <TextField fx:id="useOnItemField" layoutX="306.0" layoutY="31.0" prefHeight="25.0" prefWidth="276.0" />
+                        <Label layoutX="306.0" layoutY="14.0" text="Use on other item" />
+                        <Label layoutX="14.0" layoutY="70.0" text="Item second click" />
+                        <TextField fx:id="secondClickField" layoutX="14.0" layoutY="87.0" prefHeight="25.0" prefWidth="276.0" />
+                        <TextField fx:id="useOnNpcField" layoutX="306.0" layoutY="87.0" prefHeight="25.0" prefWidth="276.0" />
+                        <Label layoutX="306.0" layoutY="70.0" text="Use on NPC" />
+                        <Label layoutX="14.0" layoutY="126.0" text="Item third click" />
+                        <TextField fx:id="thirdClickField" layoutX="14.0" layoutY="143.0" prefHeight="25.0" prefWidth="276.0" />
+                        <TextField fx:id="useOnObjectField" layoutX="306.0" layoutY="143.0" prefHeight="25.0" prefWidth="276.0" />
+                        <Label layoutX="306.0" layoutY="126.0" text="Use on Object" />
+                     </children>
+                  </AnchorPane>
+               </content></TitledPane>
+        </panes>
+      </Accordion>
+      <ListView fx:id="listView" layoutX="14.0" layoutY="14.0" prefHeight="514.0" prefWidth="200.0" />
+      <Button fx:id="clearButton" layoutX="14.0" layoutY="561.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="200.0" text="Clear" />
+      <TextField fx:id="searchField" layoutX="14.0" layoutY="532.0" prefHeight="25.0" prefWidth="200.0" />
+      <Pane layoutX="540.0" layoutY="14.0" prefHeight="179.0" prefWidth="292.0" style="-fx-background-color: #000;" />
+   </children>
+</AnchorPane>

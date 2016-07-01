@@ -1,70 +1,182 @@
 package nl.osrs.model.item;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Pattern;
 
-import com.mysql.jdbc.Driver;
+import org.bson.Document;
+
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoDatabase;
+
+import nl.osrs.mongo.MongoManager;
 
 public class ItemLoader {
-	private static Item[] items;
+	private static ArrayList<Item> items;
 	
-	public static Item[] loadItems() {
-		items = new Item[12000];
-		
-		ResultSet itemsFromDatabase = null;
-		
-		try {
-			itemsFromDatabase = selectItemsFromDatabase();
-			
-			loadItems(itemsFromDatabase);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			System.exit(1);
-		}
+	public static ArrayList<Item> getItems() {
+		if (items == null)
+			loadItems();
 		
 		return items;
 	}
 	
-	private static void loadItems(ResultSet result) throws SQLException {
-		while (result.next()) {
-			Item item = new Item(result.getInt(1));
-			item.setName(result.getString(2));
-			item.setExamine(result.getString(3));
-			item.setValue(result.getInt(4));
-			item.setEquipmentSlot(result.getInt(5));
+	public static ArrayList<Item> getItems(String filter) {
+		FindIterable<Document> result = MongoManager.executeQuery(
+			(MongoDatabase db) -> db.getCollection("items").find(
+				new Document("name", Pattern.compile("(?i)" + filter))));
+		
+		ArrayList<Item> items = new ArrayList<>();
+		
+		for (Document doc : result)
+			items.add(convert(doc));
+		
+		return items;
+	}
+	
+	public static void loadItems() {
+		FindIterable<Document> result = MongoManager.executeQuery(
+				(MongoDatabase db) -> db.getCollection("items").find());
+		
+		ArrayList<Item> items = new ArrayList<>();
+		
+		for (Document doc : result)
+			items.add(convert(doc));
+		
+		ItemLoader.items = items;
+	}
+	
+	public static void saveItems(List<Item> items) {
+		for (Item item : items)
+			saveItem(item);
+	}
+	
+	public static void saveItem(Item item) {
+		Document toSave = convert(item);
+		
+		System.out.println("To save: " + toSave.toString());
+		// Do something...
+	}
+	
+	private static Document convert(Item item) {
+		Document doc = new Document("id", item.getId());
+		
+		if (item.hasName())
+			doc.append("name", item.getName());
+		
+		if (item.hasExamine())
+			doc.append("examine", item.getExamine());
+		
+		if (item.hasValue() && item.getValue() != 0)
+			doc.append("value", item.getValue());
+		
+		if (item.hasEquipmentSlot() && item.getEquipmentSlot() != 0)
+			doc.append("equipmentSlot", item.getEquipmentSlot());
+		
+		if (item.hasBonuses()) {
+			int[] bonusesArray = new int[item.getBonuses().length];
 			
-			int[] bonuses = {
-					result.getInt(6),
-					result.getInt(7),
-					result.getInt(8),
-					result.getInt(9),
-					result.getInt(10),
-					result.getInt(11),
-					result.getInt(12),
-					result.getInt(13),
-					result.getInt(14),
-					result.getInt(15),
-					result.getInt(16),
-					result.getInt(17),
-			};
+			for (int i = 0; i < item.getBonuses().length; i++)
+				bonusesArray[i] = item.getBonuses()[i];
+			
+			doc.append("bonuses", bonusesArray);
+		}
+		
+		if (item.hasStandAnimation())
+			doc.append("standAnimation", item.getStandAnimation());
+		
+		if (item.hasWalkAnimation())
+			doc.append("walkAnimation", item.getWalkAnimation());
+		
+		if (item.hasRunAnimation())
+			doc.append("runAnimation", item.getRunAnimation());
+		
+		if (item.hasAttackAnimation())
+			doc.append("attackAnimation", item.getAttackAnimation());
+		
+		if (item.hasBlockAnimation())
+			doc.append("blockAnimation", item.getBlockAnimation());
+		
+		if (item.hasAttackDelay())
+			doc.append("attackDelay", item.getAttackDelay());
+		
+		if (item.hasRequirements()) {
+			ArrayList<ItemRequirement> requirements = item.getRequirements();
+			ArrayList<Document> itemRequirements = new ArrayList<>();
+			
+			for (ItemRequirement requirement : requirements)
+				itemRequirements.add(new Document("skill", requirement.getSkill())
+					.append("level", requirement.getLevel()));
+			
+			doc.append("requirements", itemRequirements);
+		}
+
+		if (item.hasBonuses()) {
+			Document bonuses = new Document();
+			
+			int[] bonusesArray = new int[item.getBonuses().length];
+			
+			for (int i = 0; i < item.getBonuses().length; i++)
+				bonusesArray[i] = item.getBonuses()[i];
+			
+			bonuses.append("bonuses", bonusesArray);
+		}
+		return doc;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private static Item convert(Document document) {
+		Item item = new Item(document.getInteger("id"));
+		
+		if (document.containsKey("name"))
+			item.setName(document.getString("name"));
+		
+		if (document.containsKey("examine"))
+			item.setExamine(document.getString("examine"));
+		
+		if (document.containsKey("value"))
+			item.setValue(document.getInteger("value"));
+		
+		if (document.containsKey("equipmentSlot"))
+			item.setEquipmentSlot(document.getInteger("equipmentSlot"));
+		
+		if (document.containsKey("bonuses")) {
+			// I'm sure that it returns an ArrayList<Integer>...
+			ArrayList<Integer> itemBonuses = (ArrayList<Integer>) document.get("bonuses");
+				
+			int[] bonuses = new int[itemBonuses.size()];
+			
+			for (int i = 0 ; i < itemBonuses.size(); i++)
+				bonuses[i] = itemBonuses.get(i);
 			
 			item.setBonuses(bonuses);
-			
-			items[item.getId()] = item;
 		}
+		
+		if (document.containsKey("standAnimation"))
+			item.setStandAnimation(document.getInteger("standAnimation"));
+		
+		if (document.containsKey("walkAnimation"))
+			item.setWalkAnimation(document.getInteger("walkAnimation"));
+		
+		if (document.containsKey("runAnimation"))
+			item.setRunAnimation(document.getInteger("runAnimation"));
+		
+		if (document.containsKey("attackAnimation"))
+			item.setAttackAnimation(document.getInteger("attackAnimation"));
+		
+		if (document.containsKey("blockAnimation"))
+			item.setBlockAnimation(document.getInteger("blockAnimation"));
+		
+		if (document.containsKey("attackDelay"))
+			item.setAttackDelay(document.getInteger("attackDelay"));
+
+		if (document.containsKey("requirements")) {
+			// I'm sure that it returns an ArrayList<Document>...
+			for (Document doc : (ArrayList<Document>) document.get("requirements"))
+				item.addRequirement(new ItemRequirement(doc.getInteger("skill"), doc.getInteger("level")));
+		}
+		
+		return item;
 	}
 	
-	private static ResultSet selectItemsFromDatabase() throws SQLException {
-		@SuppressWarnings("unused")
-		Driver driver = new Driver();
-		
-		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/osrs", "root", "");
-	
-		Statement statement = connection.createStatement();
-		
-		return statement.executeQuery("SELECT * FROM item");
-	}
 }

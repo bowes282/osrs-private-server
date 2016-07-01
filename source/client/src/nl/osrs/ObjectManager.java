@@ -1,5 +1,6 @@
 package nl.osrs;
 // Decompiled by Jad v1.5.8f. Copyright 2001 Pavel Kouznetsov.
+
 // Jad home page: http://www.kpdus.com/jad.html
 // Decompiler options: packimports(3)
 
@@ -72,7 +73,8 @@ final class ObjectManager {
 						int l13 = 0x10000 / j9;
 						int j15 = (l7 << 8) / j9;
 						int j16 = byte0 + (byte1 * k12 + byte2 * l13 + byte3 * j15) / l3;
-						int j17 = (abyte0[j5 - 1][j4] >> 2) + (abyte0[j5 + 1][j4] >> 3) + (abyte0[j5][j4 - 1] >> 2) + (abyte0[j5][j4 + 1] >> 3) + (abyte0[j5][j4] >> 1);
+						int j17 = (abyte0[j5 - 1][j4] >> 2) + (abyte0[j5 + 1][j4] >> 3) + (abyte0[j5][j4 - 1] >> 2)
+								+ (abyte0[j5][j4 + 1] >> 3) + (abyte0[j5][j4] >> 1);
 						anIntArrayArray139[j5][j4] = j16 - j17;
 					}
 
@@ -137,7 +139,10 @@ final class ObjectManager {
 								k15 -= anIntArray127[k18];
 								k16 -= anIntArray128[k18];
 							}
-							if (k17 >= 1 && k17 < anInt147 - 1 && (!lowMem || (aByteArrayArrayArray149[0][l6][k17] & 2) != 0 || (aByteArrayArrayArray149[l][l6][k17] & 0x10) == 0 && method182(k17, l, l6) == anInt131)) {
+							if (k17 >= 1 && k17 < anInt147 - 1
+									&& (!lowMem || (aByteArrayArrayArray149[0][l6][k17] & 2) != 0
+											|| (aByteArrayArrayArray149[l][l6][k17] & 0x10) == 0
+													&& method182(k17, l, l6) == anInt131)) {
 								if (l < anInt145)
 									anInt145 = l;
 								int l18 = aByteArrayArrayArray142[l][l6][k17] & 0xff;
@@ -178,7 +183,9 @@ final class ObjectManager {
 									if (j21 != -1)
 										i22 = Texture.anIntArray1482[method187(k21, 96)];
 									if (i19 == 0) {
-										worldController.method279(l, l6, k17, 0, 0, -1, j19, k19, l19, i20, method187(j21, j20), method187(j21, k20), method187(j21, l20), method187(j21, i21), 0, 0, 0, 0, i22, 0);
+										worldController.method279(l, l6, k17, 0, 0, -1, j19, k19, l19, i20,
+												method187(j21, j20), method187(j21, k20), method187(j21, l20),
+												method187(j21, i21), 0, 0, 0, 0, i22, 0);
 									} else {
 										int k22 = aByteArrayArrayArray136[l][l6][k17] + 1;
 										byte byte4 = aByteArrayArrayArray148[l][l6][k17];
@@ -202,6 +209,11 @@ final class ObjectManager {
 												j23 = method177(flo_2.anInt394, flo_2.anInt395, flo_2.anInt396);
 												k23 = Texture.anIntArray1482[method185(flo_2.anInt399, 96)];
 											}
+											if ((i19 - 1) == 63) {
+												k23 = flo_2.anInt390 = 0x767676;
+												j23 = -2;
+												i23 = -1;
+											}
 											if ((i19 - 1) == 111) {
 												k23 = Texture.method369(1);
 												j23 = -1;// method177(150,100,100);
@@ -214,7 +226,10 @@ final class ObjectManager {
 												k23 = 0x483B21;
 												j23 = method177(25, 146, 24);
 											}
-											worldController.method279(l, l6, k17, k22, byte4, i23, j19, k19, l19, i20, method187(j21, j20), method187(j21, k20), method187(j21, l20), method187(j21, i21), method185(j23, j20), method185(j23, k20), method185(j23, l20), method185(j23, i21), i22, k23);
+											worldController.method279(l, l6, k17, k22, byte4, i23, j19, k19, l19, i20,
+													method187(j21, j20), method187(j21, k20), method187(j21, l20),
+													method187(j21, i21), method185(j23, j20), method185(j23, k20),
+													method185(j23, l20), method185(j23, i21), i22, k23);
 										} else {
 										}
 									}
@@ -280,7 +295,8 @@ final class ObjectManager {
 									char c1 = '\360';
 									int k14 = anIntArrayArrayArray129[k8][i4][k4] - c1;
 									int l15 = anIntArrayArrayArray129[i7][i4][k4];
-									WorldController.method277(l2, i4 * 128, l15, i4 * 128, l5 * 128 + 128, k14, k4 * 128, 1);
+									WorldController.method277(l2, i4 * 128, l15, i4 * 128, l5 * 128 + 128, k14,
+											k4 * 128, 1);
 									for (int l16 = i7; l16 <= k8; l16++) {
 										for (int l17 = k4; l17 <= l5; l17++)
 											anIntArrayArrayArray135[l16][i4][l17] &= ~i2;
@@ -317,7 +333,8 @@ final class ObjectManager {
 									char c2 = '\360';
 									int l14 = anIntArrayArrayArray129[l8][l4][k3] - c2;
 									int i16 = anIntArrayArrayArray129[j7][l4][k3];
-									WorldController.method277(l2, l4 * 128, i16, i6 * 128 + 128, k3 * 128, l14, k3 * 128, 2);
+									WorldController.method277(l2, l4 * 128, i16, i6 * 128 + 128, k3 * 128, l14,
+											k3 * 128, 2);
 									for (int i17 = j7; i17 <= l8; i17++) {
 										for (int i18 = l4; i18 <= i6; i18++)
 											anIntArrayArrayArray135[i17][i18][k3] &= ~j2;
@@ -351,7 +368,8 @@ final class ObjectManager {
 
 								if (((j6 - i5) + 1) * ((i9 - k7) + 1) >= 4) {
 									int j12 = anIntArrayArrayArray129[i3][i5][k7];
-									WorldController.method277(l2, i5 * 128, j12, j6 * 128 + 128, i9 * 128 + 128, j12, k7 * 128, 4);
+									WorldController.method277(l2, i5 * 128, j12, j6 * 128 + 128, i9 * 128 + 128, j12,
+											k7 * 128, 4);
 									for (int k13 = i5; k13 <= j6; k13++) {
 										for (int i15 = k7; i15 <= i9; i15++)
 											anIntArrayArrayArray135[i3][k13][i15] &= ~k2;
@@ -372,7 +390,8 @@ final class ObjectManager {
 	}
 
 	private static int method172(int i, int j) {
-		int k = (method176(i + 45365, j + 0x16713, 4) - 128) + (method176(i + 10294, j + 37821, 2) - 128 >> 1) + (method176(i, j, 1) - 128 >> 2);
+		int k = (method176(i + 45365, j + 0x16713, 4) - 128) + (method176(i + 10294, j + 37821, 2) - 128 >> 1)
+				+ (method176(i, j, 1) - 128 >> 2);
 		k = (int) ((double) k * 0.29999999999999999D) + 35;
 		if (k < 10)
 			k = 10;
@@ -419,7 +438,8 @@ final class ObjectManager {
 		}
 	}
 
-	private void method175(int i, WorldController worldController, Class11 class11, int j, int k, int l, int i1, int j1) {
+	private void method175(int i, WorldController worldController, Class11 class11, int j, int k, int l, int i1,
+			int j1) {
 		if (lowMem && (aByteArrayArrayArray149[0][l][i] & 2) == 0) {
 			if ((aByteArrayArrayArray149[k][l][i] & 0x10) != 0)
 				return;
@@ -470,7 +490,8 @@ final class ObjectManager {
 					j4 = class46.anInt744;
 					l4 = class46.anInt761;
 				}
-				if (worldController.method284(l2, byte0, k2, l4, ((Animable) (obj1)), j4, k, i5, i, l) && class46.aBoolean779) {
+				if (worldController.method284(l2, byte0, k2, l4, ((Animable) (obj1)), j4, k, i5, i, l)
+						&& class46.aBoolean779) {
 					Model model;
 					if (obj1 instanceof Model)
 						model = (Model) obj1;
@@ -581,7 +602,8 @@ final class ObjectManager {
 				obj11 = new Animable_Sub5(i1, 4 + j1, 2, l1, i2, k1, j2, class46.anInt781, true);
 				obj12 = new Animable_Sub5(i1, i3, 2, l1, i2, k1, j2, class46.anInt781, true);
 			}
-			worldController.method282(anIntArray152[j1], ((Animable) (obj11)), l2, i, byte0, l, ((Animable) (obj12)), k2, anIntArray152[i3], k);
+			worldController.method282(anIntArray152[j1], ((Animable) (obj11)), l2, i, byte0, l, ((Animable) (obj12)),
+					k2, anIntArray152[i3], k);
 			if (class46.aBoolean764)
 				if (j1 == 0) {
 					anIntArrayArrayArray135[k][l][i] |= 0x249;
@@ -673,7 +695,8 @@ final class ObjectManager {
 				obj13 = class46.method578(4, 0, k1, l1, i2, j2, -1);
 			else
 				obj13 = new Animable_Sub5(i1, 0, 4, l1, i2, k1, j2, class46.anInt781, true);
-			worldController.method283(l2, i, j1 * 512, k, anIntArray137[j1] * i4, k2, ((Animable) (obj13)), l, byte0, anIntArray144[j1] * i4, anIntArray152[j1]);
+			worldController.method283(l2, i, j1 * 512, k, anIntArray137[j1] * i4, k2, ((Animable) (obj13)), l, byte0,
+					anIntArray144[j1] * i4, anIntArray152[j1]);
 			return;
 		}
 		if (j == 6) {
@@ -739,7 +762,8 @@ final class ObjectManager {
 		return class46.method577(j);
 	}
 
-	public final void method179(int i, int j, Class11 aclass11[], int l, int i1, byte abyte0[], int j1, int k1, int l1) {
+	public final void method179(int i, int j, Class11 aclass11[], int l, int i1, byte abyte0[], int j1, int k1,
+			int l1) {
 		for (int i2 = 0; i2 < 8; i2++) {
 			for (int j2 = 0; j2 < 8; j2++)
 				if (l + i2 > 0 && l + i2 < 103 && l1 + j2 > 0 && l1 + j2 < 103)
@@ -751,7 +775,8 @@ final class ObjectManager {
 			for (int i3 = 0; i3 < 64; i3++) {
 				for (int j3 = 0; j3 < 64; j3++)
 					if (l2 == i && i3 >= i1 && i3 < i1 + 8 && j3 >= j1 && j3 < j1 + 8)
-						method181(l1 + Class4.method156(j3 & 7, j, i3 & 7), 0, stream, l + Class4.method155(j, j3 & 7, i3 & 7), k1, j, 0);
+						method181(l1 + Class4.method156(j3 & 7, j, i3 & 7), 0, stream,
+								l + Class4.method155(j, j3 & 7, i3 & 7), k1, j, 0);
 					else
 						method181(-1, 0, stream, -1, 0, 0, 0);
 
@@ -843,7 +868,8 @@ final class ObjectManager {
 			return j;
 	}
 
-	public final void method183(Class11 aclass11[], WorldController worldController, int i, int j, int k, int l, byte abyte0[], int i1, int j1, int k1) {
+	public final void method183(Class11 aclass11[], WorldController worldController, int i, int j, int k, int l,
+			byte abyte0[], int i1, int j1, int k1) {
 		label0: {
 			Stream stream = new Stream(abyte0);
 			int l1 = -1;
@@ -925,7 +951,8 @@ final class ObjectManager {
 		return (i & 0xff80) + j;
 	}
 
-	public static void method188(WorldController worldController, int i, int j, int k, int l, Class11 class11, int ai[][][], int i1, int j1, int k1) {
+	public static void method188(WorldController worldController, int i, int j, int k, int l, Class11 class11,
+			int ai[][][], int i1, int j1, int k1) {
 		int l1 = ai[l][i1][j];
 		int i2 = ai[l][i1 + 1][j];
 		int j2 = ai[l][i1 + 1][j + 1];
@@ -1016,7 +1043,8 @@ final class ObjectManager {
 				obj11 = new Animable_Sub5(j1, 4 + i, 2, i2, j2, l1, k2, class46.anInt781, true);
 				obj12 = new Animable_Sub5(j1, j3, 2, i2, j2, l1, k2, class46.anInt781, true);
 			}
-			worldController.method282(anIntArray152[i], ((Animable) (obj11)), i3, j, byte1, i1, ((Animable) (obj12)), l2, anIntArray152[j3], k1);
+			worldController.method282(anIntArray152[i], ((Animable) (obj11)), i3, j, byte1, i1, ((Animable) (obj12)),
+					l2, anIntArray152[j3], k1);
 			if (class46.aBoolean767)
 				class11.method211(j, i, i1, k, class46.aBoolean757);
 			return;
@@ -1083,7 +1111,8 @@ final class ObjectManager {
 				obj13 = class46.method578(4, 0, l1, i2, j2, k2, -1);
 			else
 				obj13 = new Animable_Sub5(j1, 0, 4, i2, j2, l1, k2, class46.anInt781, true);
-			worldController.method283(i3, j, i * 512, k1, anIntArray137[i] * j4, l2, ((Animable) (obj13)), i1, byte1, anIntArray144[i] * j4, anIntArray152[i]);
+			worldController.method283(i3, j, i * 512, k1, anIntArray137[i] * j4, l2, ((Animable) (obj13)), i1, byte1,
+					anIntArray144[i] * j4, anIntArray152[i]);
 			return;
 		}
 		if (k == 6) {

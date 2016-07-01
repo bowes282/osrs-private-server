@@ -92,14 +92,22 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		byte[] abyte2 = streamLoader.getDataForName("map_index");
 		Stream stream2 = new Stream(abyte2);
 		int j1 = abyte2.length / 6;
-		mapIndices1 = new int[j1];
+		chunkCoordinates = new int[j1];
 		mapIndices2 = new int[j1];
 		mapIndices3 = new int[j1];
 		for (int i2 = 0; i2 < j1; i2++) {
-			mapIndices1[i2] = stream2.readUnsignedWord();
+			chunkCoordinates[i2] = stream2.readUnsignedWord();
 			mapIndices2[i2] = stream2.readUnsignedWord();
 			mapIndices3[i2] = stream2.readUnsignedWord();
 			mapAmount++;
+		}
+		
+		for (int i50 = 0; i50 < mapAmount; i50++) {
+			System.out.println("---------");
+			System.out.println(i50);
+			System.out.println(chunkCoordinates[i50]);
+			System.out.println(mapIndices2[i50]);
+			System.out.println(mapIndices3[i50]);
 		}
 
 		abyte2 = streamLoader.getDataForName("midi_index");
@@ -125,7 +133,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	}
 
 	public void method554(boolean flag) {
-		int j = mapIndices1.length;
+		int j = chunkCoordinates.length;
 		for (int k = 0; k < j; k++)
 			if (flag || mapIndices4[k] != 0) {
 				fetch((byte) 2, 3, mapIndices3[k]);
@@ -188,7 +196,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		return 29191;
 	}
 
-	public void method558(int i, int j) {
+	public void requestData(int i, int j) {
 		synchronized (nodeSubList) {
 			for (OnDemandData onDemandData = (OnDemandData) nodeSubList.reverseGetFirst(); onDemandData != null; onDemandData = (OnDemandData) nodeSubList.reverseGetNext())
 				if (onDemandData.dataType == i && onDemandData.ID == j)
@@ -213,11 +221,8 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		try {
 			while (running) {
 				onDemandCycle++;
-				int i = 20;
-				if (anInt1332 == 0 && clientInstance.decompressors[0] != null)
-					i = 50;
 				try {
-					Thread.sleep(i);
+					Thread.sleep(anInt1332 == 0 && clientInstance.decompressors[0] != null ? 50 : 20);
 				} catch (Exception _ex) {
 				}
 				waiting = true;
@@ -342,18 +347,14 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 		return onDemandData;
 	}
 
-	public int method562(int i, int k, int l) {
-		int i1 = (l << 8) + k;
-		int mapNigga2;
-		int mapNigga3;
-		for (int j1 = 0; j1 < mapIndices1.length; j1++) {
-			if (mapIndices1[j1] == i1) {
+	public int getChunkIndex(int i, int k, int l) {
+		int chunkCoordinate = (l << 8) + k;
+		for (int chunkIndex = 0; chunkIndex < chunkCoordinates.length; chunkIndex++) {
+			if (chunkCoordinates[chunkIndex] == chunkCoordinate) {
 				if (i == 0) {
-					mapNigga2 = mapIndices2[j1] > 3535 ? -1 : mapIndices2[j1];
-					return mapNigga2;
+					return mapIndices2[chunkIndex] > 3535 ? -1 : mapIndices2[chunkIndex];
 				} else {
-					mapNigga3 = mapIndices3[j1] > 3535 ? -1 : mapIndices3[j1];
-					return mapNigga3;
+					return mapIndices3[chunkIndex] > 3535 ? -1 : mapIndices3[chunkIndex];
 				}
 			}
 		}
@@ -361,7 +362,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	}
 
 	public void method548(int i) {
-		method558(0, i);
+		requestData(0, i);
 	}
 
 	public void fetch(byte byte0, int index, int record) {
@@ -377,7 +378,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	}
 
 	public boolean method564(int i) {
-		for (int k = 0; k < mapIndices1.length; k++)
+		for (int k = 0; k < chunkCoordinates.length; k++)
 			if (mapIndices3[k] == i)
 				return true;
 		return false;
@@ -547,7 +548,7 @@ public final class OnDemandFetcher extends OnDemandFetcherParent implements Runn
 	private final NodeList aClass19_1368;
 	private OnDemandData current;
 	private final NodeList aClass19_1370;
-	private int[] mapIndices1;
+	private int[] chunkCoordinates;
 	private byte[] modelIndices;
 	private int loopCycle;
 }

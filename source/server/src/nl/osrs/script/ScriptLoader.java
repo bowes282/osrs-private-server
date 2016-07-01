@@ -14,6 +14,17 @@ import javax.script.ScriptException;
  * @author j.germeraad
  */
 public class ScriptLoader {
+	
+	public static boolean executeScript(String scriptCall, Object... args) {
+		String[] split = scriptCall.split("@");
+		
+		if (split.length != 2) {
+			System.err.println("Invalid script call format: " + scriptCall);
+			return false;
+		}
+		
+		return executeScript(split[0].replace(".", "/"), split[1], args);
+	}
 
 	public static boolean executeScript(String script, String function, Object... args) {
 		try {
@@ -23,7 +34,12 @@ public class ScriptLoader {
 			
 			Invocable invocable = (Invocable) engine;
 			
-			return (boolean) invocable.invokeFunction(function, args);
+			Object result = invocable.invokeFunction(function, args);
+
+			if (result == null)
+				return true;
+			
+			return (boolean) result;
 		} catch (NoSuchMethodException | FileNotFoundException | ScriptException e) {
 			System.err.println(e.getMessage());
 		}

@@ -3,6 +3,13 @@ import java.awt.*;
 import java.awt.image.PixelGrabber;
 import javax.swing.ImageIcon;
 
+import nl.osrs.Background;
+import nl.osrs.Client;
+import nl.osrs.FileOperations;
+import nl.osrs.Stream;
+import nl.osrs.StreamLoader;
+import nl.osrs.signlink;
+
 public final class Sprite extends DrawingArea {
 
 	public Sprite(int i, int j) {
