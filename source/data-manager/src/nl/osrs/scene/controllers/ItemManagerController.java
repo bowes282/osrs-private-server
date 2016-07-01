@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -16,7 +17,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -38,7 +43,18 @@ public class ItemManagerController extends SceneController implements Initializa
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		ArrayList<Item> items = ItemLoader.getItems();
+		ArrayList<Item> items = new ArrayList<>();
+		ItemDef[] itemDefinitions = null;
+		
+		try {
+			itemDefinitions = CacheManager.getItemDefinitions();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		for (Item item : ItemLoader.getItems())
+			if (itemDefinitions[item.getId()].name != null)
+				items.add(item);
 		
 		initializeListView(items);
 		initializeClearButton();
@@ -159,14 +175,40 @@ public class ItemManagerController extends SceneController implements Initializa
 		
 		loadEquipmentSlotField();
 		
+		checkSynchronization();
+	}
+	
+	private void checkSynchronization() {
 		try {
 			ItemDef item = CacheManager.getItemDefinitions()[selectedItem.getId()];
-			System.out.println(item.id + ": " + item.name);
+			
+			if (!item.name.equals(selectedItem.getName()))
+				openUnsynchronizedItemNameAlert(item);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
+	private void openUnsynchronizedItemNameAlert(ItemDef item) {
+		Alert alert = new Alert(AlertType.WARNING);
+		alert.setTitle("Synchronization Warning");
+		alert.setHeaderText(null);
+		alert.setContentText("Item name is '" + selectedItem.getName() + "' server sided and '" + item.name + "' client sided.");
+
+		ButtonType chooseServerName = new ButtonType("Use '" + selectedItem.getName() + "'");
+		ButtonType chooseClientName = new ButtonType("Use '" + item.name + "'");
+		ButtonType ignoreWarning = new ButtonType("Ignore", ButtonData.CANCEL_CLOSE);
+
+		alert.getButtonTypes().setAll(chooseServerName, chooseClientName, ignoreWarning);
+
+		Optional<ButtonType> result = alert.showAndWait();
+
+		if (result.get() == chooseServerName)
+		    System.out.println("Chose server name.");
+		else if (result.get() == chooseClientName)
+		    System.out.println("Chose client name.");
+	}
+
 	private void loadEquipmentSlotField() {
 		ArrayList<String> equipmentSlots = new ArrayList<>();
 		String selected = "Can not be equipped";

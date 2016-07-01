@@ -10,6 +10,10 @@ public class SceneManager {
 		SceneManager.stage = stage;
 	}
 	
+	public static Stage getStage() {
+		return stage;
+	}
+	
 	public static void switchScene(Scene scene) {
 		SceneManager.stage.setScene(scene);
 		SceneManager.stage.show();
