@@ -8,7 +8,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import nl.osrs.cachemanager.CacheManager;
 import nl.osrs.scene.SceneManager;
-import nl.osrs.scene.controllers.ItemManagerController;
+import nl.osrs.scene.controllers.ItemDropViewController;
 
 public class DataManager extends Application {
 	@Override
@@ -18,10 +18,10 @@ public class DataManager extends Application {
 		stage.setOnCloseRequest(e -> Platform.exit());
 		
 		Platform.setImplicitExit(false);
-		
+
 		new SceneManager(stage);
 		new CacheManager();
-		new ItemManagerController().loadScene();
+		new ItemDropViewController().loadScene();
 	}
 	
 	public static void main(String[] args) {

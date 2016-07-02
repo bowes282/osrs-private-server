@@ -11,8 +11,6 @@ import nl.osrs.cachemanager.cache.data.Index;
 import nl.osrs.cachemanager.cache.data.IndexType;
 import nl.osrs.cachemanager.stream.Stream;
 import nl.osrs.cachemanager.stream.StreamLoader;
-import nl.osrs.item.Item;
-import nl.osrs.item.ItemLoader;
 
 public class Cache {
 	public static final String CACHE_PATH = "../../data/client/";
@@ -21,6 +19,8 @@ public class Cache {
 	
 	private RandomAccessFile data;
 	private RandomAccessFile[] indices;
+	
+	private ItemDefinition[] itemDefinitions;
 	
 	public Cache() throws FileNotFoundException {
 		int indexFileCount = 5;
@@ -38,11 +38,23 @@ public class Cache {
 	public void loadArchives() throws IOException {
 		loadItemArchive();
 	}
-	
-	public ItemDef[] loadItemArchive() throws IOException {
-		ItemDef[] items = new ItemDef[12000];
+
+	public ItemDefinition[] loadItemDefinitions() {
+		if (itemDefinitions == null)
+			loadItemArchive();
 		
-		StreamLoader streamLoader = getStreamLoader(2, IndexType.ARCHIVES);
+		return itemDefinitions;
+	}
+	
+	private void loadItemArchive() {
+		itemDefinitions = new ItemDefinition[12000];
+		
+		StreamLoader streamLoader = null;
+		try {
+			streamLoader = getStreamLoader(2, IndexType.ARCHIVES);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		Stream dataStream = new Stream(streamLoader.getDataForName("obj.dat"));
 		Stream indexStream = new Stream(streamLoader.getDataForName("obj.idx"));
@@ -56,18 +68,16 @@ public class Cache {
 			i += indexStream.readUnsignedWord();
 		}
 		
-		for (Item item : ItemLoader.getItems()) {
-			dataStream.currentOffset = streamIndices[item.getId()];
-			ItemDef itemDef = new ItemDef(item.getId());
-			itemDef.readValues(dataStream);
+		for (int j = 0; j < itemDefinitions.length; j++) {
+			dataStream.currentOffset = streamIndices[j];
+			ItemDefinition itemDefinition = new ItemDefinition(j);
+			itemDefinition.readValues(dataStream);
 			
-			if (itemDef.id != item.getId())
-				System.out.println(item.getName() + " doesn't match: " + item.getId() + " != " + itemDef.id);
+			if (itemDefinition.name == null && itemDefinition.dropModel == 0)
+				continue;
 			
-			items[item.getId()] = itemDef;
+			itemDefinitions[j] = itemDefinition;
 		}
-		
-		return items;
 	}
 	
 	private StreamLoader getStreamLoader(int i, IndexType indexType) throws IOException {
@@ -106,4 +116,5 @@ public class Cache {
 	public static RandomAccessFile loadFile(String fileName) throws FileNotFoundException {
 		return new RandomAccessFile(new File(CACHE_PATH + fileName), "rw");
 	}
+
 }

@@ -2,9 +2,9 @@ package nl.osrs.cachemanager.cache;
 
 import nl.osrs.cachemanager.stream.Stream;
 
-public final class ItemDef {
+public final class ItemDefinition {
 	
-	public ItemDef(int id) {
+	public ItemDefinition(int id) {
 		this.id = id;
 		setDefaults();
 	}

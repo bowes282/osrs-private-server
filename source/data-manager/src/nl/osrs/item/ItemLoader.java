@@ -9,6 +9,8 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
+import nl.osrs.cachemanager.CacheManager;
+import nl.osrs.cachemanager.cache.ItemDefinition;
 import nl.osrs.mongo.MongoManager;
 
 public class ItemLoader {
@@ -26,9 +28,28 @@ public class ItemLoader {
 				(MongoDatabase db) -> db.getCollection("items").find());
 		
 		ArrayList<Item> items = new ArrayList<>();
+		ItemDefinition[] itemDefinitions = CacheManager.getItemDefinitions();
 		
-		for (Document doc : result)
-			items.add(convert(doc));
+		for (Document doc : result) {
+			Item item = convert(doc);
+			
+			ItemDefinition itemDefinition = itemDefinitions[item.getId()];
+			
+			if (itemDefinition == null)
+				continue;
+			
+			if (item.getId() != itemDefinition.id) {
+				System.err.println("Item " + item.getId() + " is out of sync...");
+				continue;
+			}
+			
+			if (itemDefinition.name == null)
+				continue;
+			
+			item.setName(itemDefinition.name);
+			
+			items.add(item);
+		}
 		
 		ItemLoader.items = items;
 	}
@@ -140,9 +161,6 @@ public class ItemLoader {
 	@SuppressWarnings("unchecked")
 	private static Item convert(Document document) {
 		Item item = new Item(document.getInteger("id"));
-		
-		if (document.containsKey("name"))
-			item.setName(document.getString("name"));
 		
 		if (document.containsKey("examine"))
 			item.setExamine(document.getString("examine"));
