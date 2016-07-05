@@ -9,8 +9,8 @@ import org.bson.Document;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 
-import nl.osrs.cachemanager.CacheManager;
-import nl.osrs.cachemanager.cache.ItemDefinition;
+import nl.osrs.cache.CacheManager;
+import nl.osrs.cache.ItemDefinition;
 import nl.osrs.mongo.MongoManager;
 
 public class ItemLoader {

@@ -1,9 +1,13 @@
-package nl.osrs.cachemanager.cache.data;
+package nl.osrs.cache;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import nl.osrs.cache.data.DataBlock;
+import nl.osrs.cache.data.Index;
+import nl.osrs.cache.data.IndexType;
 
 public class DataPacker {
 	private RandomAccessFile dataFile;

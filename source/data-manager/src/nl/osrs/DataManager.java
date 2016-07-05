@@ -6,9 +6,9 @@ import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import nl.osrs.cachemanager.CacheManager;
+import nl.osrs.cache.CacheManager;
 import nl.osrs.scene.SceneManager;
-import nl.osrs.scene.controllers.ItemDropViewController;
+import nl.osrs.scene.controllers.ItemManagerController;
 
 public class DataManager extends Application {
 	@Override
@@ -21,7 +21,7 @@ public class DataManager extends Application {
 
 		new SceneManager(stage);
 		new CacheManager();
-		new ItemDropViewController().loadScene();
+		new ItemManagerController().loadScene();
 	}
 	
 	public static void main(String[] args) {

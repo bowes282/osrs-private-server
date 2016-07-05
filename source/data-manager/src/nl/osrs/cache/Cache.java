@@ -1,16 +1,15 @@
-package nl.osrs.cachemanager.cache;
+package nl.osrs.cache;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 
-import nl.osrs.cachemanager.cache.data.DataBlock;
-import nl.osrs.cachemanager.cache.data.DataPacker;
-import nl.osrs.cachemanager.cache.data.Index;
-import nl.osrs.cachemanager.cache.data.IndexType;
-import nl.osrs.cachemanager.stream.Stream;
-import nl.osrs.cachemanager.stream.StreamLoader;
+import nl.osrs.cache.data.DataBlock;
+import nl.osrs.cache.data.Index;
+import nl.osrs.cache.data.IndexType;
+import nl.osrs.cache.stream.Stream;
+import nl.osrs.cache.stream.StreamLoader;
 
 public class Cache {
 	public static final String CACHE_PATH = "../../data/client/";

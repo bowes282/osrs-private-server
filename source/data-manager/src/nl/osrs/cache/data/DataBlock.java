@@ -1,4 +1,4 @@
-package nl.osrs.cachemanager.cache.data;
+package nl.osrs.cache.data;
 
 public class DataBlock {
 	private int dataBlockId;

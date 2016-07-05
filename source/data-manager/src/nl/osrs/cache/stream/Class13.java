@@ -1,4 +1,4 @@
-package nl.osrs.cachemanager.stream;
+package nl.osrs.cache.stream;
 final class Class13 {
 
 	public static int method225(byte abyte0[], int i, byte abyte1[], int j, int k) {

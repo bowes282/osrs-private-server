@@ -1,4 +1,4 @@
-package nl.osrs.cachemanager.cache.data;
+package nl.osrs.cache.data;
 
 public enum IndexType {
 	ARCHIVES(0), MODELS(1), ANIMATIONS(2), SOUNDS(3), MAPS(4);

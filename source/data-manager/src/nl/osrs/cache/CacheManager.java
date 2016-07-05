@@ -1,10 +1,7 @@
-package nl.osrs.cachemanager;
+package nl.osrs.cache;
 
 import java.io.IOException;
 import java.util.logging.Level;
-
-import nl.osrs.cachemanager.cache.Cache;
-import nl.osrs.cachemanager.cache.ItemDefinition;
 
 public class CacheManager {
 	private static Cache cache;

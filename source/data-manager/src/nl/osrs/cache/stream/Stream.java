@@ -1,4 +1,4 @@
-package nl.osrs.cachemanager.stream;
+package nl.osrs.cache.stream;
 import java.math.BigInteger;
 
 public final class Stream {

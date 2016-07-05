@@ -1,6 +1,6 @@
-package nl.osrs.cachemanager.cache;
+package nl.osrs.cache;
 
-import nl.osrs.cachemanager.stream.Stream;
+import nl.osrs.cache.stream.Stream;
 
 public final class ItemDefinition {
 	

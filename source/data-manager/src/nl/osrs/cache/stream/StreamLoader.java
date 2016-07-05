@@ -1,4 +1,4 @@
-package nl.osrs.cachemanager.stream;
+package nl.osrs.cache.stream;
 
 import java.io.File;
 import java.io.FileInputStream;
